@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Test;
+use App\Models\LabTest;
 use Illuminate\Http\Request;
 
-class TestController extends Controller
+class LabTestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class TestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Test  $test
+     * @param  \App\Models\LabTest  $labTest
      * @return \Illuminate\Http\Response
      */
-    public function show(Test $test)
+    public function show(LabTest $labTest)
     {
         //
     }
@@ -52,10 +52,10 @@ class TestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Test  $test
+     * @param  \App\Models\LabTest  $labTest
      * @return \Illuminate\Http\Response
      */
-    public function edit(Test $test)
+    public function edit(LabTest $labTest)
     {
         //
     }
@@ -64,10 +64,10 @@ class TestController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Test  $test
+     * @param  \App\Models\LabTest  $labTest
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Test $test)
+    public function update(Request $request, LabTest $labTest)
     {
         //
     }
@@ -75,11 +75,11 @@ class TestController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Test  $test
+     * @param  \App\Models\LabTest  $labTest
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Test $test)
+    public function destroy(LabTest $labTest)
     {
-
+        //
     }
 }
