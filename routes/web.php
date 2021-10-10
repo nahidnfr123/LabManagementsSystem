@@ -22,7 +22,10 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|
         Route::get('hr', [UsersController::class, 'hr'])->name('users.hr');
         Route::get('patient', [UsersController::class, 'index'])->name('users.patient');
 
-        Route::resource('users', UsersController::class, ['as' => ''])->except(['index', 'hr']);
+        // Route::resource('users', UsersController::class, ['as' => ''])->except(['index', 'hr']);
+        Route::resource('users', UsersController::class)->except(['index', 'hr']);
+
+//        Route::post('something', UserController)
     });
 });
 

@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use SweetAlert;
+
+use Illuminate\Support\Facades\Hash;
+
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Validation\Rules;
 
 class UsersController extends Controller
 {
@@ -50,7 +56,25 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'numeric', 'digits:11', 'regex:/(01)[0-9]{9}/', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required'],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+        ]);
+        SweetAlert::info('User Create', 'A user account is create!');
+        // event(new Registered($user));
+            $user->assignRole([$request->role]);
+            return redirect()->back();
+
     }
 
     /**

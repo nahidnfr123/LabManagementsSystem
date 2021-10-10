@@ -1,4 +1,4 @@
-<div class="modal fade addUserModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade addUserModal" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,7 +8,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('users.store')}}">
+                <!-- Validation Errors -->
+                <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+
+                <form action="{{route('users.store')}}" method="POST">
                     @csrf
 
                     <div class="row">
@@ -82,7 +85,7 @@
 
                         <div class="d-flex justify-content-between align-center flex-wrap mt-4">
                             <x-button class="ms-4">
-                                {{ __('Create User') }}
+                                {{ __('Create User')}}
                             </x-button>
                         </div>
                 </form>
@@ -93,3 +96,5 @@
         </div>
     </div>
 </div>
+
+

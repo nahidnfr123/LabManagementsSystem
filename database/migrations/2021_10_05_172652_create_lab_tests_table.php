@@ -16,7 +16,6 @@ class CreateLabTestsTable extends Migration
         Schema::create('lab_tests', function (Blueprint $table) {
             $table->id();
             $table->string('test_name');
-            $table->string('test_name');
             $table->timestamps();
         });
     }

@@ -123,6 +123,11 @@
                     "responsive": true,
                 });
             });
+
+
+            @if ($errors->any())
+            $('#createUserModal').modal('show')
+            @endif
         </script>
     </x-slot>
 </x-backend-layout>
