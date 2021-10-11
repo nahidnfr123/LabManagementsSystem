@@ -14,7 +14,6 @@ class CreateAppointmentLabTestTable extends Migration
     public function up()
     {
         Schema::create('appointment_lab_test', function (Blueprint $table) {
-
             $table->integer('appointment_id');//FK
             $table->integer('lab_test_id');//FK
             $table->timestamps();

@@ -44,6 +44,8 @@ class User extends Authenticatable
         Cache::forget('users.all');
     }
 
+
+
     protected static function boot()
     {
         parent::boot();
@@ -87,4 +89,6 @@ class User extends Authenticatable
     {
         return \Carbon\Carbon::parse($value)->format('d-m-Y');
     }
+
+
 }

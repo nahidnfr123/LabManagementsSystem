@@ -14,12 +14,15 @@ class CreateAppointmentTable extends Migration
     public function up()
     {
         Schema::create('appointment', function (Blueprint $table) {
-            $table->increments('id');;
-            $table->integer('appointment_no');//auto generated number
+            $table->id();
+            $table->integer('appointment_no')->nullable();//auto generated number
             $table->date('appointment_date');
             $table->time('appointment_time');
-            $table->double('cost',10,2);
-            $table->integer('user_id');//Foreign key
+            $table->double('cost', 10, 2);
+            $table->foreignId('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade'); /// user
             $table->softDeletes();
             $table->timestamps();
         });

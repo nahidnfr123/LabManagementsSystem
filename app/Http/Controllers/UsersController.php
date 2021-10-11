@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Validation\Rules;
+// use UxWeb\SweetAlert\SweetAlert;
 
 class UsersController extends Controller
 {
@@ -60,7 +61,7 @@ class UsersController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'numeric', 'digits:11', 'regex:/(01)[0-9]{9}/', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'password' => ['required'],
+            'role' => ['required'],
         ]);
 
         $user = User::create([
@@ -69,10 +70,10 @@ class UsersController extends Controller
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]);
-
+        // SweetAlert::info('User Create', 'A user account is create!');
         // event(new Registered($user));
-            $user->assignRole([$request->role]);
-            return redirect()->back();
+        $user->assignRole([$request->role]);
+        return redirect()->back();
 
     }
 
@@ -107,7 +108,14 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->update($request->all());
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'numeric', 'digits:11', 'regex:/(01)[0-9]{9}/', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['required'],
+        ]);
+        $user->update($request->only(['name', 'email', 'phone', 'password', 'role']));
         return redirect()->back();
     }
 
