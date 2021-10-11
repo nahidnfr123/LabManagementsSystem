@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLabTestTable extends Migration
+class CreateAppointmentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateLabTestTable extends Migration
      */
     public function up()
     {
-        Schema::create('lab_test', function (Blueprint $table) {
+        Schema::create('appointment', function (Blueprint $table) {
             $table->increments('id');;
-            $table->string('name');
-            $table->string('description');
+            $table->integer('appointment_no');//auto generated number
+            $table->date('appointment_date');
+            $table->time('appointment_time');
             $table->double('cost',10,2);
+            $table->integer('user_id');//Foreign key
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +32,6 @@ class CreateLabTestTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lab_test');
+        Schema::dropIfExists('appointment');
     }
 }

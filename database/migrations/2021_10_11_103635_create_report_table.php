@@ -14,7 +14,11 @@ class CreateReportTable extends Migration
     public function up()
     {
         Schema::create('report', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->integer('user_id');//FK
+            $table->integer('appointment_no');//FK
+            $table->integer('lab_test_id');//FK
+            //pdf report
             $table->timestamps();
         });
     }

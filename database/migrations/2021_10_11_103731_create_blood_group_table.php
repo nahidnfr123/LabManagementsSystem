@@ -14,7 +14,10 @@ class CreateBloodGroupTable extends Migration
     public function up()
     {
         Schema::create('blood_group', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('group_name');
+            $table->smallInteger('in_stock');
+            $table->double('price',8,2);
             $table->timestamps();
         });
     }

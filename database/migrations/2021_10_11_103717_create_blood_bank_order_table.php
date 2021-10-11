@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaymentTable extends Migration
+class CreateBloodBankOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreatePaymentTable extends Migration
      */
     public function up()
     {
-        Schema::create('payment', function (Blueprint $table) {
+        Schema::create('blood_bank_order', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');//FK
-            $table->integer('appointment_no');//FK
-            $table->double('paid_amount',10,2);
-            $table->smallInteger('payment_method',);
+            $table->date('order_date');
+            $table->smallInteger('request_amount');
+            $table->integer('blood_group_id');//FK
+            //required blood test report
+            $table->string('order_status',10);
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreatePaymentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment');
+        Schema::dropIfExists('blood_bank_order');
     }
 }

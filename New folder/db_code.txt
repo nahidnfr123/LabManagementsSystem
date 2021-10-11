@@ -1,8 +1,8 @@
 -- users table
 users
-apointment 
+appointment ***
 lab_test
-apointment_lab_test
+appointment_lab_test
 report
 payment
 salary

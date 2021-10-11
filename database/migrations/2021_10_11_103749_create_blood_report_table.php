@@ -14,7 +14,11 @@ class CreateBloodReportTable extends Migration
     public function up()
     {
         Schema::create('blood_report', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->integer('user_id');//FK
+            $table->integer('order_id');//FK
+            $table->date('blood_received_id');
+            $table->double('total_cost',8,2);
             $table->timestamps();
         });
     }

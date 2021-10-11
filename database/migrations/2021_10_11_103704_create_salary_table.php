@@ -14,7 +14,9 @@ class CreateSalaryTable extends Migration
     public function up()
     {
         Schema::create('salary', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->double('amount',8,2);
+            $table->date('given_date');
             $table->timestamps();
         });
     }
