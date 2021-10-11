@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use SweetAlert;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -70,7 +69,7 @@ class UsersController extends Controller
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]);
-        SweetAlert::info('User Create', 'A user account is create!');
+
         // event(new Registered($user));
             $user->assignRole([$request->role]);
             return redirect()->back();

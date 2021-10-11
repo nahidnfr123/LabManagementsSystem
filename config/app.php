@@ -177,7 +177,7 @@ return [
 
         Spatie\Permission\PermissionServiceProvider::class,
 
-        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+       
     ],
 
     /*
@@ -233,7 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
 
-        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+
     ],
 
 ];

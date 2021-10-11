@@ -1,0 +1,11 @@
+-- users table
+users
+apointment 
+lab_test
+apointment_lab_test
+report
+payment
+salary
+blood_bangk_order
+blood_group
+blood_report
