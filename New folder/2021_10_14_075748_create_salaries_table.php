@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAppointmentTable extends Migration
+class CreateSalariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateAppointmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('appointment', function (Blueprint $table) {
-            $table->id();
-            $table->integer('appointment_no');//auto generated number
-            $table->date('appointment_date');
-            $table->time('appointment_time');
-            $table->double('cost', 10, 2)->nullable();
+        Schema::create('salaries', function (Blueprint $table) {
+            $table->increments('id');
             $table->foreignId('user_id')
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade'); //FK
-            $table->softDeletes();
+                ->onDelete('cascade')
+                ->constrained('appointments'); //FK
+            $table->double('amount',8,2);
+            $table->date('given_date');
             $table->timestamps();
         });
     }
@@ -35,6 +33,6 @@ class CreateAppointmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointment');
+        Schema::dropIfExists('salaries');
     }
 }

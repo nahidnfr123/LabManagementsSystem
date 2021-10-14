@@ -17,17 +17,12 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone');
+            $table->string('phone')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('avatar')->default('/storage/user_data/patient/avatar_default.png');
             $table->date('dob')->nullable();
-            $table->unsignedBigInteger('blood_group_id');
-                $table->foreign('blood_group_id')
-                    ->references('id')
-                    ->on('blood_groups')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+            $table->string('blood_group')->nullable();
             $table->string('gender')->nullable();
             $table->tinyInteger('blocked')->default(0);
             $table->string('status')->default('active');

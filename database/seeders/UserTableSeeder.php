@@ -17,7 +17,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 	$user = User::create([
             'name' => 'Admin User',
             'email' => 'admin@gmail.com',
@@ -37,13 +37,13 @@ class UserTableSeeder extends Seeder
         foreach ($users as $user) {
             $user->assignRole(['patient']);
         }
-		
-		
+
+
 		$user = User::create([
             'name' => 'Admin User',
-            'email' => 'bkash@gmail.com',
+            'email' => 'bikash@gmail.com',
             'email_verified_at' => Carbon::now(),
-            'password' => Hash::make('123456'),
+            'password' => Hash::make('111111'),
             'dob' => '1996-08-21',
             'phone' => '01823423434',
             'blood_group' => 'B+',
