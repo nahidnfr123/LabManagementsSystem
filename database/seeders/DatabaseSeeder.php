@@ -17,6 +17,32 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        BloodGroup::create([
+            'group_name' => 'A+'
+        ]);
+        BloodGroup::create([
+            'group_name' => 'A-'
+        ]);
+        BloodGroup::create([
+            'group_name' => 'B+'
+        ]);
+        BloodGroup::create([
+            'group_name' => 'B-'
+        ]);
+        BloodGroup::create([
+            'group_name' => 'AB+'
+        ]);
+        BloodGroup::create([
+            'group_name' => 'AB-'
+        ]);
+        BloodGroup::create([
+            'group_name' => 'O+'
+        ]);
+        BloodGroup::create([
+            'group_name' => 'O-'
+        ]);
+
         $this->call([
             PermissionTableSeeder::class,
             RoleTableSeeder::class,

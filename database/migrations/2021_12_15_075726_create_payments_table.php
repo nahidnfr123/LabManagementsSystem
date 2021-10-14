@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSalariesTable extends Migration
+class CreatePaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateSalariesTable extends Migration
      */
     public function up()
     {
-        Schema::create('salaries', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreignId('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade')
-                ->constrained('appointments'); //FK
-            $table->double('amount',8,2);
-            $table->date('given_date');
+
+            $table->foreignId('users_id')->constrained();
+
+            $table->foreignId('appointments_id')->constrained();//FK v v
+            $table->double('paid_amount',10,2);
+            $table->smallInteger('payment_method');
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateSalariesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('salaries');
+        Schema::dropIfExists('payments');
     }
 }

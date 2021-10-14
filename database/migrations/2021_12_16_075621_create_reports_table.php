@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBloodGroupsTable extends Migration
+class CreateReportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateBloodGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blood_groups', function (Blueprint $table) {
-            $table->id();
-            $table->string('group_name');
-            $table->integer('available_amount')->default(0);
-            $table->double('price')->default(0);
+        Schema::create('reports', function (Blueprint $table) {
+            $table->increments('id');
+            $table->foreignId('appointments_id')->constrained();
+            $table->foreignId('lab_tests_id')->constrained();
+            $table->string('pdf');
+            //pdf report
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateBloodGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blood_groups');
+        Schema::dropIfExists('reports');
     }
 }

@@ -22,12 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('avatar')->default('/storage/user_data/patient/avatar_default.png');
             $table->date('dob')->nullable();
-            $table->unsignedBigInteger('blood_group_id');
-                $table->foreign('blood_group_id')
-                    ->references('id')
-                    ->on('blood_groups')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+            $table->foreignId('blood_groups_id')->references('id')
+            ->on('blood_groups')->onDelete('CASCADE');
             $table->string('gender')->nullable();
             $table->tinyInteger('blocked')->default(0);
             $table->string('status')->default('active');

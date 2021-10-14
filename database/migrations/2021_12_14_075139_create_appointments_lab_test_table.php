@@ -15,10 +15,9 @@ class CreateAppointmentsLabTestTable extends Migration
     {
         Schema::create('appointments_lab_test', function (Blueprint $table) {
             // $table->id();
-            $table->integer('app_no')->unsigned();
+            $table->foreignId('appointments_id')->constrained();
 
-            $table->integer('lab_test_id')->unsigned();
-
+            $table->foreignId('lab_tests_id')->constrained();
 
 
             // $table->foreign('app_no')
