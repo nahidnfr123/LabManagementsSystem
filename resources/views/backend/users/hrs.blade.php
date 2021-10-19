@@ -62,7 +62,7 @@
                                         </td>
                                         <td>{{$user->created_at}}</td>
                                         <td>
-                                            <a href="" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            <a href="{{route('users.edit',[$user])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form action="{{ route('users.destroy', [$user]) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf

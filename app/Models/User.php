@@ -25,6 +25,10 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
+        'blood_groups_id',
+        'about',
+        'gender',
+        'dob',
     ];
 
     public function isOnline()

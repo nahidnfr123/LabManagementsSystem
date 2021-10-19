@@ -56,12 +56,16 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'numeric', 'digits:11', 'regex:/(01)[0-9]{9}/', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required'],
+            'gender' => ['required'],
+
+
         ]);
 
         $user = User::create([
@@ -69,6 +73,11 @@ class UsersController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
+            'blood_groups_id' => $request->blood_groups_id,
+            'about' => $request->about,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
+
         ]);
         // SweetAlert::info('User Create', 'A user account is create!');
         // event(new Registered($user));
@@ -96,7 +105,13 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        // $id = $user->id;
+        // dd($id);
+        // $data = User::find($id);
+        // dd($data);
+
+        return view('backend.users.hrs_edit', compact('user'));
+
     }
 
     /**
