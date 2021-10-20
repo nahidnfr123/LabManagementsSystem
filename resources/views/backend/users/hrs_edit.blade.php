@@ -14,9 +14,10 @@
     <!-- Validation Errors -->
     <x-auth-validation-errors class="mb-4" :errors="$errors"/>
 
-    <form action="" method="POST">
+    <form action="{{'users.update'}}" method="POST">
         @csrf
         {{-- {{dd($user);}} --}}
+
 
         <div class="row">
             <div class="col-6">
@@ -30,7 +31,7 @@
 
             <div class="col-6">
                 <x-label for="role" :value="__('Role*')"/>
-                <select name="role" id="role" required class="form-control">
+                <select name="role" id="role"  class="form-control">
                     {{-- @foreach($roles as $role)
                         <option value="{{$role->name}}">{{$role->name}}</option>
                     @endforeach --}}

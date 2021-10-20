@@ -191,6 +191,20 @@
                                         <p>Patient</p>
                                     </a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a href="{{route('users.patient')}}" class="nav-link {{ isActive('users.patient') }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Lab manager</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{route('users.patient')}}" class="nav-link {{ isActive('users.patient') }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Staff</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     @endif
