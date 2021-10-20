@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Validation\Rules;
-// use UxWeb\SweetAlert\SweetAlert;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UsersController extends Controller
 {
@@ -73,6 +73,8 @@ class UsersController extends Controller
         // SweetAlert::info('User Create', 'A user account is create!');
         // event(new Registered($user));
         $user->assignRole([$request->role]);
+        // Alert::toast('User created successfully.', 'Success message');
+        alert()->success('Success message', 'User created successfully.');
         return redirect()->back();
     }
 
