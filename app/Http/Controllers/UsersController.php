@@ -52,7 +52,7 @@ class UsersController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -74,14 +74,13 @@ class UsersController extends Controller
         // event(new Registered($user));
         $user->assignRole([$request->role]);
         return redirect()->back();
-
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function show(User $user)
     {

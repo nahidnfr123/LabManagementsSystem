@@ -27,6 +27,7 @@
 
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+@include('sweetalert::alert')
 
 <!-- PRE LOADER -->
 <section class="preloader">
