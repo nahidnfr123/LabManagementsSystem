@@ -193,8 +193,22 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item has-treeview {{ isActive('lab-test.index') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{ isActive('lab-test.index') }}">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Manage Lab Test<i class="right fas fa-angle-left"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('lab-test.index')}}" class="nav-link {{ isActive('users.hr') }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Lab Test</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     @endif
-                    <li class="nav-item">
+                    {{--<li class="nav-item">
                         <a href="pages/widgets.html" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
@@ -202,8 +216,8 @@
                                 <span class="right badge badge-danger">New</span>
                             </p>
                         </a>
-                    </li>
-                    <li class="nav-item has-treeview">
+                    </li>--}}
+                    {{--<li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-copy"></i>
                             <p>
@@ -256,8 +270,8 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
+                    </li>--}}
+                    {{--<li class="nav-item">
                         <a href="pages/calendar.html" class="nav-link">
                             <i class="nav-icon fas fa-calendar-alt"></i>
                             <p>
@@ -265,7 +279,7 @@
                                 <span class="badge badge-info right">2</span>
                             </p>
                         </a>
-                    </li>
+                    </li>--}}
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
