@@ -41,11 +41,11 @@ class UserTableSeeder extends Seeder
 
         $user = User::create([
             'name' => 'Admin User',
-            'email' => 'bikash@gmail.com',
+            'email' => 'sohel@gmail.com',
             'email_verified_at' => Carbon::now(),
-            'password' => Hash::make('111111'),
+            'password' => Hash::make('sohel@gmail.com'),
             'dob' => '1996-08-21',
-            'phone' => '01823423434',
+            'phone' => '0122334454',
             'blood_groups_id' => 1,
             'gender' => 'male',
             'avatar' => '/storage/user_data/admin/Admin.gif',

@@ -18,6 +18,7 @@ class CreateLabTestsTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->double('cost',10,2);
+            // image
             $table->softDeletes();
             $table->timestamps();
         });

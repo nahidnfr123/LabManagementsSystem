@@ -20,15 +20,15 @@ class CreateAppointmentsLabTestTable extends Migration
             $table->foreignId('lab_tests_id')->constrained();
 
 
-            // $table->foreign('app_no')
-            //     ->references('appointment_no')
-            //     ->on('appointment')
-            //     ->onUpdate('cascade')
-            //     ->onDelete('cascade');
-            // $table->foreign('lab_test_id')
-            // ->references('id')
-            // ->on('lab_test')
-            // ->onDelete('cascade');
+//             $table->foreign('app_no')
+//                 ->references('appointment_no')
+//                 ->on('appointment')
+//                 ->onUpdate('cascade')
+//                 ->onDelete('cascade');
+//             $table->foreign('lab_test_id')
+//             ->references('id')
+//             ->on('lab_test')
+//             ->onDelete('cascade');
 
         });
 
