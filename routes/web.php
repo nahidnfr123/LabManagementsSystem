@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LabTestController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +15,9 @@ Route::get('/about', function () {
 });
 
 
+Route::post('appointment', [AppointmentController::class, 'store']);
+Route::post('payment', [AppointmentController::class, 'store']);
+
 // Dashboard Routes ...
 Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|laboratorian']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -24,7 +29,13 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|
 
         // Route::resource('users', UsersController::class, ['as' => ''])->except(['index', 'hr']);
         Route::resource('users', UsersController::class)->except(['index', 'hr']);
-        
+
+        # Work left to do ....
+        Route::resource('lab-test', LabTestController::class);
+        Route::resource('appointment', AppointmentController::class);
+        Route::resource('payment', AppointmentController::class);
+        # Work left to do ....
+
     });
 });
 
