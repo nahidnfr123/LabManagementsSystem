@@ -24,8 +24,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|
 
         // Route::resource('users', UsersController::class, ['as' => ''])->except(['index', 'hr']);
         Route::resource('users', UsersController::class)->except(['index', 'hr']);
-
-//        Route::post('something', UserController)
+        
     });
 });
 
