@@ -14,7 +14,8 @@ class LabTestController extends Controller
      */
     public function index()
     {
-        //
+        $labtests = LabTest::get();
+        return view('backend.lab_test.lab_test',compact('labtests'));
     }
 
     /**
@@ -35,7 +36,15 @@ class LabTestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'cost' => ['required'],
+        ]);
+        $data = $request->all();
+        unset($data['_token']);
+        LabTest::create($data);
+        alert()->success('Success message', 'Lab Test created successfully.');
+        return redirect()->back();
     }
 
     /**
@@ -57,7 +66,7 @@ class LabTestController extends Controller
      */
     public function edit(LabTest $labTest)
     {
-        //
+        return view('backend.lab_test.lab_test_edit',compact('labTest'));
     }
 
     /**
@@ -69,7 +78,14 @@ class LabTestController extends Controller
      */
     public function update(Request $request, LabTest $labTest)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'cost' => ['required'],
+        ]);
+        $data = $request->all();
+        unset($data['_token']);
+        $labTest->update($data);
+        return redirect()->back();
     }
 
     /**
@@ -80,6 +96,7 @@ class LabTestController extends Controller
      */
     public function destroy(LabTest $labTest)
     {
-        //
+        $labTest->forceDelete();
+        return redirect()->route('backend.lab_test.lab_test');
     }
 }

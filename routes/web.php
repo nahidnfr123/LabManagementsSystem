@@ -3,11 +3,14 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LabTestController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UsersController;
+use App\Models\LabTest;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('index');
+    $labtests = LabTest::get();
+    return view('index', compact('labtests'));
 })->name('index');
 
 Route::get('/about', function () {
@@ -15,8 +18,8 @@ Route::get('/about', function () {
 });
 
 
-Route::post('appointment', [AppointmentController::class, 'store']);
-Route::post('payment', [AppointmentController::class, 'store']);
+Route::resource('userappointment', AppointmentController::class)->only(['store']);
+Route::post('payment', [PaymentController::class, 'store']);
 
 // Dashboard Routes ...
 Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|laboratorian']], function () {
@@ -33,9 +36,9 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|
         # Work left to do ....
         Route::resource('lab-test', LabTestController::class);
         Route::resource('appointment', AppointmentController::class);
-        Route::resource('payment', AppointmentController::class);
+        Route::get('set-status/{id}/{status}',[AppointmentController::class, 'setStatus'])->name('appointment.setstatus');
+        Route::resource('payment', PaymentController::class);
         # Work left to do ....
-
     });
 });
 

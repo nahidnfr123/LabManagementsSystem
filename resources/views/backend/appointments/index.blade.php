@@ -23,27 +23,30 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Details</th>
-                                    <th>Joined</th>
+                                    <th>Appointment Number</th>
+                                    <th>Cost</th>
+                                    <th>Status</th>
+                                    <th>Appointment Date</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($labtests as $test)
+                                @foreach($appointments as $test)
                                     <tr>
                                         <td>
-                                            {{$test->name}}
+                                            {{$test->appointment_no}}
                                         </td>
-                                        <td>{{$test->description}}</td>
-                                        <td>{{$test->created_at}}</td>
+                                        <td>{{$test->cost}}</td>
+                                        <td>{{$test->status}}</td>
+                                        <td>{{$test->appointment_date}}</td>
                                         <td>
-                                            <a href="{{route('lab-test.edit',[$test])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form action="{{ route('lab-test.destroy', [$test]) }}" method="POST">
+                                            <a href="{{ url('backend/set-status/'.$test->id.'/'.'confirmed'.'/') }}" class="btn btn-sm btn-primary"><i class="fas fa-check"></i> Accept</a>
+                                            <a href="{{ url('backend/set-status/'.$test->id.'/'.'reject'.'/') }}" class="btn btn-sm btn-danger"><i class="fas fa-ban"></i> Reject</a>
+                                            {{-- <form action="{{ route('lab-test.destroy', [$test]) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit"class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                            </form>
+                                            </form> --}}
 {{--                                            <a href="{{ route('users.destroy', ['user'=>$user->id]) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>--}}
                                         </td>
                                     </tr>
