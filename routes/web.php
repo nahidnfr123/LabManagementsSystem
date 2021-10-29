@@ -7,10 +7,20 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UsersController;
 use App\Models\LabTest;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SslCommerzPaymentController;
+use App\Models\Appointment;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     $labtests = LabTest::get();
-    return view('index', compact('labtests'));
+    $lastAppointment = null;
+    if (isset(Auth::user()->id)){
+        $lastAppointment = Appointment::where('users_id', Auth::user()->id)
+                                        ->where('status','confirmed')
+                                        ->where('order_id',null)
+                                        ->latest()->first();
+    }
+    return view('index', compact('labtests', 'lastAppointment'));
 })->name('index');
 
 Route::get('/about', function () {
@@ -20,7 +30,19 @@ Route::get('/about', function () {
 
 Route::resource('userappointment', AppointmentController::class)->only(['store']);
 Route::post('payment', [PaymentController::class, 'store']);
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
 
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
 // Dashboard Routes ...
 Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|laboratorian']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

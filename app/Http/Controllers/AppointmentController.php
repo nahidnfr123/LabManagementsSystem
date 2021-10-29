@@ -59,11 +59,6 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => ['required', 'string', 'max:255'],
-        //     'email' => ['required'],
-        //     'phone' => ['required'],
-        // ]);
         $data = $request->all();
         $labtest = LabTest::find($data['lab_test_ids']);
         $total_cost = 0;
@@ -94,7 +89,7 @@ class AppointmentController extends Controller
                 'lab_tests_id' => $id
             ]);
         }
-        alert()->success('Success message', 'Appointment Added successfully.');
+        alert()->success('Success message', 'Appointment recorded successfully please at least 24 hours to proced');
         return redirect()->back();
     }
 

@@ -149,84 +149,86 @@
 
 
     <!-- NEWS -->
-    <section id="news" data-stellar-background-ratio="2.5">
-        <div class="container">
-            <div class="row">
+    @if($lastAppointment)
+        <section id="news" data-stellar-background-ratio="2.5">
+            <div class="container">
+                <div class="row">
 
-                <div class="col-md-12 col-sm-12">
-                    <!-- SECTION TITLE -->
-                    <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                        <h2>Latest News</h2>
+                    <div class="col-md-12 col-sm-12">
+                        <!-- SECTION TITLE -->
+                        <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                            <h2>Unpaid Appointment</h2>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-md-4 col-sm-6">
-                    <!-- NEWS THUMB -->
-                    <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                        <a href="news-detail.html">
-                            <img src="images/news-image1.jpg" class="img-responsive" alt="">
-                        </a>
-                        <div class="news-info">
-                            <span>March 08, 2018</span>
-                            <h3><a href="news-detail.html">About Amazing Technology</a></h3>
-                            <p>Maecenas risus neque, placerat volutpat tempor ut, vehicula et felis.</p>
-                            <div class="author">
-                                <img src="images/author-image.jpg" class="img-responsive" alt="">
-                                <div class="author-info">
-                                    <h5>Jeremie Carlson</h5>
-                                    <p>CEO / Founder</p>
+                    <div class="col-md-12 col-sm-6">
+                        <!-- NEWS THUMB -->
+                        <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
+                            <a href="news-detail.html">
+                                <img src="images/news-image1.jpg" class="img-responsive" alt="">
+                            </a>
+                            <div class="news-info">
+                                {{-- <span>March 08, 2018</span> --}}
+                                <span>Appoint Time: {{$lastAppointment->appointment_date}}</span>
+                                <h3><b>Status:</b> Confirmed</h3>
+                                <p>Amount:{{$lastAppointment->cost}}</p>
+                                <div class="author">
+                                    {{-- <img src="images/author-image.jpg" class="img-responsive" alt=""> --}}
+                                    <div class="author-info" id="hijihi">
+                                        <h5>Jeremie Carlson</h5>
+                                        <p>CEO / Founder</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-4 col-sm-6">
-                    <!-- NEWS THUMB -->
-                    <div class="news-thumb wow fadeInUp" data-wow-delay="0.6s">
-                        <a href="news-detail.html">
-                            <img src="images/news-image2.jpg" class="img-responsive" alt="">
-                        </a>
-                        <div class="news-info">
-                            <span>February 20, 2018</span>
-                            <h3><a href="news-detail.html">Introducing a new healing process</a></h3>
-                            <p>Fusce vel sem finibus, rhoncus massa non, aliquam velit. Nam et est ligula.</p>
-                            <div class="author">
-                                <img src="images/author-image.jpg" class="img-responsive" alt="">
-                                <div class="author-info">
-                                    <h5>Jason Stewart</h5>
-                                    <p>General Director</p>
+                    {{-- <div class="col-md-4 col-sm-6">
+                        <!-- NEWS THUMB -->
+                        <div class="news-thumb wow fadeInUp" data-wow-delay="0.6s">
+                            <a href="news-detail.html">
+                                <img src="images/news-image2.jpg" class="img-responsive" alt="">
+                            </a>
+                            <div class="news-info">
+                                <span>February 20, 2018</span>
+                                <h3><a href="news-detail.html">Introducing a new healing process</a></h3>
+                                <p>Fusce vel sem finibus, rhoncus massa non, aliquam velit. Nam et est ligula.</p>
+                                <div class="author">
+                                    <img src="images/author-image.jpg" class="img-responsive" alt="">
+                                    <div class="author-info">
+                                        <h5>Jason Stewart</h5>
+                                        <p>General Director</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-4 col-sm-6">
-                    <!-- NEWS THUMB -->
-                    <div class="news-thumb wow fadeInUp" data-wow-delay="0.8s">
-                        <a href="news-detail.html">
-                            <img src="images/news-image3.jpg" class="img-responsive" alt="">
-                        </a>
-                        <div class="news-info">
-                            <span>January 27, 2018</span>
-                            <h3><a href="news-detail.html">Review Annual Medical Research</a></h3>
-                            <p>Vivamus non nulla semper diam cursus maximus. Pellentesque dignissim.</p>
-                            <div class="author">
-                                <img src="images/author-image.jpg" class="img-responsive" alt="">
-                                <div class="author-info">
-                                    <h5>Andrio Abero</h5>
-                                    <p>Online Advertising</p>
+                    <div class="col-md-4 col-sm-6">
+                        <!-- NEWS THUMB -->
+                        <div class="news-thumb wow fadeInUp" data-wow-delay="0.8s">
+                            <a href="news-detail.html">
+                                <img src="images/news-image3.jpg" class="img-responsive" alt="">
+                            </a>
+                            <div class="news-info">
+                                <span>January 27, 2018</span>
+                                <h3><a href="news-detail.html">Review Annual Medical Research</a></h3>
+                                <p>Vivamus non nulla semper diam cursus maximus. Pellentesque dignissim.</p>
+                                <div class="author">
+                                    <img src="images/author-image.jpg" class="img-responsive" alt="">
+                                    <div class="author-info">
+                                        <h5>Andrio Abero</h5>
+                                        <p>Online Advertising</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div> --}}
 
+                </div>
             </div>
-        </div>
-    </section>
-
+        </section>
+    @endif
 
     <!-- MAKE AN APPOINTMENT -->
     <section id="appointment" data-stellar-background-ratio="3">
@@ -297,7 +299,16 @@
        -->
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3647.3030413476204!2d100.5641230193719!3d13.757206847615207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf51ce6427b7918fc!2sG+Tower!5e0!3m2!1sen!2sth!4v1510722015945" width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
     </section>
-
+    <x-slot name="scripts">
+        <script>
+        $(function() {
+            console.log( "ready!" );
+        });
+        // $("#hijihi").click(function(){
+        //     alert("The paragraph was clicked.");
+        // });
+    </script>
+    </x-slot>
 </x-frontend-layout>
 
 
