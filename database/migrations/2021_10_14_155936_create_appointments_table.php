@@ -17,7 +17,7 @@ class CreateAppointmentsTable extends Migration
             $table->id();
             $table->integer('appointment_no');//auto generated number
             $table->dateTime('appointment_date');
-            $table->enum('status', ['pending', 'confirmed']);
+            $table->enum('status', ['pending', 'confirmed', 'reject']);
             $table->double('cost', 10, 2)->nullable();
             $table->foreignId('users_id')->constrained(); //FK
             $table->softDeletes();

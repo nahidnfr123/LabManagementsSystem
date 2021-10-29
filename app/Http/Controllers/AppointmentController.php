@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\LabTest;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class AppointmentController extends Controller
 {
@@ -14,7 +19,26 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $appointments = Appointment::get();
+        return view('backend.appointments.index', compact('appointments'));
+    }
+
+    public function setStatus($id, $status)
+    {
+        if ($status == "confirmed") {
+            $appointment = Appointment::where('id', $id)->first()->toArray();
+            Appointment::where('id', $id)->update(['status' => $status]);
+            $user_mail = User::where('id', $appointment['users_id'])->first(); 
+            Mail::send('backend.appointments.mail', $appointment, function ($message) use($user_mail) {
+                $message->to($user_mail['email'],'Mail send')
+                ->subject('Your Appointment Acepted');
+            });
+        }
+        if ($status == "reject") {
+            Appointment::where('id', $id)->update(['status' => $status]);
+        }
+        alert()->success('Success message', 'Status save successfully');
+        return redirect()->back();
     }
 
     /**
@@ -35,7 +59,43 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->validate([
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required'],
+        //     'phone' => ['required'],
+        // ]);
+        $data = $request->all();
+        $labtest = LabTest::find($data['lab_test_ids']);
+        $total_cost = 0;
+        foreach ($labtest as $key => $test) {
+            $total_cost+=$test->cost;
+        }
+        unset($data['_token']);
+        $data['status'] = "pending";
+        $data['user_id'] = Auth::user()->id;
+        $data['cost'] = $total_cost;
+        $last_appointment = Appointment::latest()->first();
+        if ($last_appointment) {
+            $data['appointment_no'] = $last_appointment->appointment_no+1;
+        }else {
+            $data['appointment_no'] = 1000;
+        }
+        // dd($data);
+        $store=Appointment::create([
+            'appointment_no'=>$data['appointment_no'],
+            'appointment_date'=>$data['date'],
+            'status'=>$data['status'],
+            'cost'=>$data['cost'],
+            'users_id' => $data['user_id'],
+        ]);
+        foreach ($data['lab_test_ids'] as $key => $id) {
+            DB::table('appointments_lab_test')->insert([
+                'appointments_id' => $store->id,
+                'lab_tests_id' => $id
+            ]);
+        }
+        alert()->success('Success message', 'Appointment Added successfully.');
+        return redirect()->back();
     }
 
     /**

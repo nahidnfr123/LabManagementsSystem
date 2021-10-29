@@ -207,6 +207,20 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item has-treeview {{ isActive('lab-test.index') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{ isActive('lab-test.index') }}">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Manage Apointments<i class="right fas fa-angle-left"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('appointment.index')}}" class="nav-link {{ isActive('users.hr') }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Apointments</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     @endif
                     {{--<li class="nav-item">
                         <a href="pages/widgets.html" class="nav-link">
