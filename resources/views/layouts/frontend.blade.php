@@ -25,6 +25,7 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{  asset('frontend/css/tooplate-style.css') }}">
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 @include('sweetalert::alert')
@@ -195,7 +196,7 @@
 </footer>
 
 <!-- SCRIPTS -->
-<script src="{{  asset('frontend/js/jquery.js') }}"></script>
+/* <script src="{{  asset('frontend/js/jquery.js') }}"></script> */
 <script src="{{  asset('frontend/js/bootstrap.min.js') }}"></script>
 <script src="{{  asset('frontend/js/jquery.sticky.js') }}"></script>
 <script src="{{  asset('frontend/js/jquery.stellar.min.js') }}"></script>
