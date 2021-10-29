@@ -24,8 +24,6 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{  asset('frontend/css/tooplate-style.css') }}">
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 @include('sweetalert::alert')
@@ -44,17 +42,14 @@
 <header>
     <div class="container">
         <div class="row">
-
             <div class="col-md-4 col-sm-5">
                 <p>Welcome to a Professional Health Care</p>
             </div>
-
             <div class="col-md-8 col-sm-7 text-align-right">
                 <span class="phone-icon"><i class="fa fa-phone"></i> 010-060-0160</span>
                 <span class="date-icon"><i class="fa fa-calendar-plus-o"></i> 6:00 AM - 10:00 PM (Mon-Fri)</span>
                 <span class="email-icon"><i class="fa fa-envelope-o"></i> <a href="#">info@company.com</a></span>
             </div>
-
         </div>
     </div>
 </header>
@@ -63,7 +58,6 @@
 <!-- MENU -->
 <section class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
-
         <div class="navbar-header">
             <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon icon-bar"></span>
@@ -91,11 +85,10 @@
                 @endif
                 @auth
                     <li>
-                        <form method="POST" action="{{ route('logout') }}" style="margin: 0; padding: 0">
+                        <form method="POST" action="{{ route('logout') }}" style="margin: 12px; padding: 0">
                             @csrf
                             <a href="{{route('logout')}}"
-                               onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                               onclick="event.preventDefault();this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </a>
                         </form>
@@ -110,10 +103,9 @@
 {{ $slot }}
 
 <!-- FOOTER -->
-<footer data-stellar-background-ratio="5">
+<footer data-stellar-background-ratio="5" style="background-color: #1a252f; color: white;">
     <div class="container">
         <div class="row">
-
             <div class="col-md-4 col-sm-4">
                 <div class="footer-thumb">
                     <h4 class="wow fadeInUp" data-wow-delay="0.4s">Contact Info</h4>
@@ -196,7 +188,7 @@
 </footer>
 
 <!-- SCRIPTS -->
-/* <script src="{{  asset('frontend/js/jquery.js') }}"></script> */
+<script src="{{  asset('frontend/js/jquery.js') }}"></script>
 <script src="{{  asset('frontend/js/bootstrap.min.js') }}"></script>
 <script src="{{  asset('frontend/js/jquery.sticky.js') }}"></script>
 <script src="{{  asset('frontend/js/jquery.stellar.min.js') }}"></script>
@@ -204,6 +196,6 @@
 <script src="{{  asset('frontend/js/smoothscroll.js') }}"></script>
 <script src="{{  asset('frontend/js/owl.carousel.min.js') }}"></script>
 <script src="{{  asset('frontend/js/custom.js') }}"></script>
-
+{{ $scripts ?? "" }}
 </body>
 </html>

@@ -81,8 +81,8 @@
                 <div class="col-md-6 col-sm-6">
                     <!-- CONTACT FORM HERE -->
                     <form id="appointment-form" role="form" method="post" action="{{ route('userappointment.store') }}">
-                        @csrf
-                        <!-- SECTION TITLE -->
+                    @csrf
+                    <!-- SECTION TITLE -->
                         <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
                             <h2>Make an appointment</h2>
                         </div>
@@ -128,8 +128,15 @@
     </section>
 
 
-</x-frontend-layout>
+    <x-slot name="scripts">
+        <script>
+            $(document).ready(function () {
+                alert('Jquery')
+            })
+        </script>
+    </x-slot>
 
+</x-frontend-layout>
 
 {{--
 <x-guest-layout>
