@@ -68,7 +68,58 @@
         </div>
     </section>
 
+<!-- NEWS -->
+    @php
+        $amount = 0;
+        $user_id = null;
+        $appointment_id = null;
+    @endphp
+    @if($lastAppointment)
+         @php
+            $amount = $lastAppointment->cost;
+            $user_id = $lastAppointment->users_id;
+            $appointment_id = $lastAppointment->id;
+        @endphp
+        <section id="news" data-stellar-background-ratio="2.5">
+            <div class="container">
+                <div class="row">
 
+                    <div class="col-md-12 col-sm-12">
+                        <!-- SECTION TITLE -->
+                        <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                            <h2>Unpaid Appointment</h2>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-6">
+                        <!-- NEWS THUMB -->
+                        <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
+                            <a href="news-detail.html">
+                                <img src="images/news-image1.jpg" class="img-responsive" alt="">
+                            </a>
+                            <div class="news-info">
+                                {{-- <span>March 08, 2018</span> --}}
+                                <span>Appoint Time: {{$lastAppointment->appointment_date}}</span>
+                                <h3><b>Status:</b> Confirmed</h3>
+                                <p>Amount:{{$lastAppointment->cost}}</p>
+                                <div class="author">
+                                    {{-- <img src="images/author-image.jpg" class="img-responsive" alt=""> --}}
+                                    <div class="author-info" id="hijihi">
+                                        <button class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
+                                                token="if you have any token validation"
+                                                postdata=""
+                                                order="If you already have the transaction generated for current order"
+                                                endpoint="{{ url('/pay-via-ajax') }}"> Pay Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
     <!-- MAKE AN APPOINTMENT -->
     <section id="appointment" data-stellar-background-ratio="3">
         <div class="container">
@@ -130,9 +181,31 @@
 
     <x-slot name="scripts">
         <script>
-            $(document).ready(function () {
-                alert('Jquery')
-            })
+            var amount = {!! $amount !!}
+            var user_id = {!! $user_id !!}
+            var appointment_id = {!! $appointment_id !!}
+            var obj = {};
+            obj.cus_name = $('#customer_name').val();
+            obj.cus_phone = $('#mobile').val();
+            obj.cus_email = $('#email').val();
+            obj.cus_addr1 = $('#address').val();
+            // obj.amount = $('#total_amount').val();
+            obj.amount = amount;
+            obj.user_id = user_id;
+            obj.appointment_id = appointment_id;
+
+            $('#sslczPayBtn').prop('postdata', obj);
+
+            (function (window, document) {
+                var loader = function () {
+                    var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+                    // script.src = "https://seamless-epay.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR LIVE
+                    script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR SANDBOX
+                    tag.parentNode.insertBefore(script, tag);
+                };
+
+                window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+            })(window, document);
         </script>
     </x-slot>
 
