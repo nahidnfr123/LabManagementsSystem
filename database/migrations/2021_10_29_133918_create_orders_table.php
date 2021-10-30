@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->text('address')->nullable();
             $table->string('status')->nullable();
             $table->string('transaction_id')->nullable();
+            $table->unsignedInteger('appointment_id')->nullable();
             $table->string('currency')->nullable();
             $table->timestamps();
         });
