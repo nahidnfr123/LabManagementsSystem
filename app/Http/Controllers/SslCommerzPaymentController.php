@@ -137,6 +137,8 @@ class SslCommerzPaymentController extends Controller
         if (isset($requestData['appointment_id'])) {
             $appointment_id = $requestData['appointment_id'];
         }
+        if (isset($requestData['appointment_id']) && isset($requestData['appointment_id'])) {
+        }
         #Before  going to initiate the payment order status need to update as Pending.
         $update_product = DB::table('orders')
             ->where('transaction_id', $post_data['tran_id'])
@@ -164,6 +166,7 @@ class SslCommerzPaymentController extends Controller
                 'order_id' => $post_data['tran_id']
             ]);
         }
+        
 
     }
 
