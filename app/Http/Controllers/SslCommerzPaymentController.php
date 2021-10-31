@@ -96,7 +96,7 @@ class SslCommerzPaymentController extends Controller
         # In orders table order uniq identity is "transaction_id","status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
         $requestData = (array) json_decode($request->cart_json);
         $post_data = array();
-        $post_data['total_amount'] = $requestData['amount']; # You cant not pay less than 10
+        $post_data['total_amount'] =(int) $requestData['amount']; # You cant not pay less than 10
         $post_data['currency'] = "BDT";
         $post_data['tran_id'] = uniqid(); // tran_id must be unique
 
@@ -133,7 +133,10 @@ class SslCommerzPaymentController extends Controller
         $post_data['value_c'] = "ref003";
         $post_data['value_d'] = "ref004";
 
-
+        $appointment_id = null;
+        if (isset($requestData['appointment_id'])) {
+            $appointment_id = $requestData['appointment_id'];
+        }
         #Before  going to initiate the payment order status need to update as Pending.
         $update_product = DB::table('orders')
             ->where('transaction_id', $post_data['tran_id'])
@@ -145,7 +148,7 @@ class SslCommerzPaymentController extends Controller
                 'status' => 'Pending',
                 'address' => $post_data['cus_add1'],
                 'transaction_id' => $post_data['tran_id'],
-                'appointment_id' => $requestData['appointment_id'],
+                'appointment_id' => $appointment_id,
                 'currency' => $post_data['currency']
             ]);
         $sslc = new SslCommerzNotification();
@@ -156,9 +159,11 @@ class SslCommerzPaymentController extends Controller
             print_r($payment_options);
             $payment_options = array();
         }
-        Appointment::where('id', $requestData['appointment_id'])->update([
-            'order_id' => $post_data['tran_id']
-        ]);
+        if (isset($requestData['appointment_id'])) {
+            Appointment::where('id', $requestData['appointment_id'])->update([
+                'order_id' => $post_data['tran_id']
+            ]);
+        }
 
     }
 

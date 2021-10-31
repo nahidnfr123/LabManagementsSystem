@@ -30,6 +30,7 @@
                                     <th>Gender</th>
                                     <th>Roles</th>
                                     <th>Joined</th>
+                                    <th>Add Salary</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -62,13 +63,16 @@
                                         </td>
                                         <td>{{$user->created_at}}</td>
                                         <td>
+                                            <a href="{{route('users.salary',$user->id)}}" class="btn btn-sm btn-warning"><i class="fas fa-money-bill"></i></a>
+                                        </td>
+                                        <td>
                                             <a href="{{route('users.edit',[$user])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form action="{{ route('users.destroy', [$user]) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit"class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                                             </form>
-{{--                                            <a href="{{ route('users.destroy', ['user'=>$user->id]) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>--}}
+                                           {{-- <a href="{{ route('users.destroy', ['user'=>$user->id]) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a> --}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -88,6 +92,7 @@
                             </table>
                         </div>
                         <!-- /.card-body -->
+                        
                     </div>
                     <x-modals.add-user-modal :roles="$roles"/>
                     <!-- /.card -->

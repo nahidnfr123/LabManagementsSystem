@@ -4,6 +4,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LabTestController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Models\Appointment;
@@ -46,18 +47,17 @@ Route::post('payment', [PaymentController::class, 'store']);
 
 // Dashboard Routes ...
 Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|laboratorian']], function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
-    // only Admin Role Routes ...
-    Route::group(['middleware' => ['role:admin']], function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        // only Admin Role Routes ...
+        Route::group(['middleware' => ['role:admin']], function () {
         Route::get('hr', [UsersController::class, 'hr'])->name('users.hr');
+        Route::get('add-salary/{id}', [UsersController::class, 'addSalary'])->name('users.salary');
         Route::get('patient', [UsersController::class, 'index'])->name('users.patient');
-
         // Route::resource('users', UsersController::class, ['as' => ''])->except(['index', 'hr']);
         Route::resource('users', UsersController::class)->except(['index', 'hr']);
-
         # Work left to do ....
         Route::resource('lab-test', LabTestController::class);
+        Route::resource('salary', SalaryController::class);
         Route::resource('appointment', AppointmentController::class);
         Route::get('set-status/{id}/{status}',[AppointmentController::class, 'setStatus'])->name('appointment.setstatus');
         Route::resource('payment', PaymentController::class);

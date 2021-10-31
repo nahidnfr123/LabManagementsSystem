@@ -134,7 +134,11 @@ class UsersController extends Controller
         $user->update($request->only(['name', 'email', 'phone', 'password', 'role']));
         return redirect()->back();
     }
-
+    public function addSalary($id)
+    {
+        $user = User::find($id);
+        return view('backend.users.showSalary',compact('user'));
+    }
     /**
      * Remove the specified resource from storage.
      *
