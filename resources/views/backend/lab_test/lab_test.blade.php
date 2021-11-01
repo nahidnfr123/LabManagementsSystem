@@ -27,6 +27,7 @@
                                     <th>Details</th>
                                     <th>Joined</th>
                                     <th>Action</th>
+                                    <th>Report</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -46,6 +47,10 @@
                                             </form>
 {{--                                            <a href="{{ route('users.destroy', ['user'=>$user->id]) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>--}}
                                         </td>
+                                        <td>
+                                            <a href="{{route('report.pdf.show',$test->id)}}" class="btn btn-sm btn-warning"><button type="submit" class="btn btn-sm btn-primary">Add Report</button></a>
+                                            <a href="{{route('report.show',$test->id)}}" class="btn btn-sm btn-warning"><button type="submit" class="btn btn-sm btn-primary">View</button></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -55,6 +60,7 @@
                                     <th>Details</th>
                                     <th>Joined</th>
                                     <th>Action</th>
+                                    <th>Report</th>
                                 </tr>
                                 </tfoot>
                             </table>

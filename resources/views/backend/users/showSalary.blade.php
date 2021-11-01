@@ -10,8 +10,8 @@
     <!-- Validation Errors -->
     <x-auth-validation-errors class="mb-4" :errors="$errors"/>
     <h3>Add Salary for {{$user->name}}</h3>
-    <form action="{{route('salary.store')}}" method="POST">
-        @csrf
+    {{-- <form action="{{route('salary.store')}}" method="POST">
+        @csrf --}}
         <div class="row">
             <div class="col-6">
                 <!-- Name -->
@@ -33,19 +33,17 @@
                                 required/>
                 </div>
             </div>
-            <div class="col-12">
+            {{-- <div class="col-12"> --}}
+                <br>
                 <button class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
                         token="if you have any token validation"
                         postdata="your javascript arrays or objects which requires in backend"
                         order="If you already have the transaction generated for current order"
                         endpoint="{{ url('/pay-via-ajax') }}"> Pay Now
                 </button>
-                {{-- <x-button class="mt-4">
-                    {{ __('Add Salary')}}
-                </x-button> --}}
-            </div>
+            {{-- </div> --}}
         </div>
-    </form>
+    {{-- </form> --}}
 </div>
 
 
@@ -66,8 +64,8 @@
         obj.salary_user_id = {{!! $user->id !!}}
         $("#total_amount").change(function(){
             obj.amount = $('#total_amount').val();
+             console.log(obj.amount);
         });
-
         $("#salary_date").change(function(){
             obj.salary_date = $('#salary_date').val();
         });
@@ -83,21 +81,21 @@
             };
             window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
         })(window, document);
-        $(function () {
-            $("#example1").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-            });
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
+        // $(function () {
+        //     $("#example1").DataTable({
+        //         "responsive": true,
+        //         "autoWidth": false,
+        //     });
+        //     $('#example2').DataTable({
+        //         "paging": true,
+        //         "lengthChange": false,
+        //         "searching": false,
+        //         "ordering": true,
+        //         "info": true,
+        //         "autoWidth": false,
+        //         "responsive": true,
+        //     });
+        // });
     </script>
 </x-slot>
 </x-backend-layout>

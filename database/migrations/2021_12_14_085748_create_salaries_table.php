@@ -16,8 +16,9 @@ class CreateSalariesTable extends Migration
         Schema::create('salaries', function (Blueprint $table) {
             $table->increments('id');
             $table->foreignId('users_id')->constrained(); //FK
-            $table->double('amount',8,2);
-            $table->date('given_date');
+            $table->double('amount',8,2)->nullable();
+            $table->date('given_date')->nullable();
+            $table->string('trx_id')->nullable();
             $table->timestamps();
         });
     }

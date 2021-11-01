@@ -6,6 +6,7 @@ use DB;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
 use App\Models\Appointment;
+use App\Models\Salary;
 
 class SslCommerzPaymentController extends Controller
 {
@@ -134,10 +135,13 @@ class SslCommerzPaymentController extends Controller
         $post_data['value_d'] = "ref004";
 
         $appointment_id = null;
+        $salary_id = null;
         if (isset($requestData['appointment_id'])) {
             $appointment_id = $requestData['appointment_id'];
         }
-        if (isset($requestData['appointment_id']) && isset($requestData['appointment_id'])) {
+        if (isset($requestData['amount']) && isset($requestData['salary_date'])) {
+            $salary = Salary::create(['users_id' => $requestData['salary_user_id'], 'amount' => $requestData['amount'], 'given_date' => $requestData['salary_date']]);
+            $salary_id = $salary->id;
         }
         #Before  going to initiate the payment order status need to update as Pending.
         $update_product = DB::table('orders')
@@ -151,6 +155,7 @@ class SslCommerzPaymentController extends Controller
                 'address' => $post_data['cus_add1'],
                 'transaction_id' => $post_data['tran_id'],
                 'appointment_id' => $appointment_id,
+                'salary_id' => $salary_id,
                 'currency' => $post_data['currency']
             ]);
         $sslc = new SslCommerzNotification();
@@ -166,8 +171,11 @@ class SslCommerzPaymentController extends Controller
                 'order_id' => $post_data['tran_id']
             ]);
         }
-        
-
+        if (isset($requestData['amount']) && isset($requestData['salary_date'])) {
+            Salary::where('id', $salary_id)->update([
+                'trx_id' => $post_data['tran_id']
+            ]);
+        }
     }
 
     public function success(Request $request)

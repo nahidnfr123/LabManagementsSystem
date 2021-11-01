@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LabReports;
 use App\Models\LabTest;
 use Illuminate\Http\Request;
 
@@ -45,6 +46,31 @@ class LabTestController extends Controller
         LabTest::create($data);
         alert()->success('Success message', 'Lab Test created successfully.');
         return redirect()->back();
+    }
+    public function showPdfPage($id)
+    {
+        $labtests = LabTest::find($id);
+        return view('backend.lab_test.show_pdf', compact('labtests'));
+    }
+    public function showPdfReport($id)
+    {
+        $labtests = LabReports::with('labTest')->where('lab_test_id',$id)->get();
+        return view('backend.lab_test.show_report', compact('labtests'));
+    }
+    public function addPdf(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $imageNameArr = [];
+            foreach ($request->upload as $file) {
+                // you can also use the original name
+                $imageName = time() . '-' . $file->getClientOriginalName();
+                $imageNameArr[] = $imageName;
+                $file->move(public_path('files'), $imageName);
+                $create = LabReports::create(['lab_test_id' => $request->labtest_id, 'file_name' => $imageName]);
+            }
+        }
+        return redirect()->back();
+        alert()->success('Success message', 'File added successfully.');
     }
 
     /**

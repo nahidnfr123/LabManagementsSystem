@@ -59,6 +59,9 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|
         Route::resource('lab-test', LabTestController::class);
         Route::resource('salary', SalaryController::class);
         Route::resource('appointment', AppointmentController::class);
+        Route::get('show-pdf/{id}', [LabTestController::class, 'showPdfPage'])->name('report.pdf.show');
+        Route::get('show-report/{id}', [LabTestController::class, 'showPdfReport'])->name('report.show');
+        Route::post('add-pdf', [LabTestController::class, 'addPdf'])->name('report.pdf.store');
         Route::get('set-status/{id}/{status}',[AppointmentController::class, 'setStatus'])->name('appointment.setstatus');
         Route::resource('payment', PaymentController::class);
         # Work left to do ....
