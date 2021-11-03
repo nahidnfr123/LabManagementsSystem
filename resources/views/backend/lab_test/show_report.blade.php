@@ -11,8 +11,6 @@
 
 
 <div class="container">
-    <!-- Validation Errors -->
-    {{-- <x-auth-validation-errors class="mb-4" :errors="$errors"/> --}}
     <h3>Reports</h3>
     <div class="row">
         @foreach($labtests as $key => $value)
@@ -24,24 +22,6 @@
             </div>
         @endforeach
     </div>
-    {{-- <form action="{{route('report.pdf.store')}}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <input type="hidden" name="labtest_id" value="{{$labtests->id}}" >
-        <div class="row">
-            <div class="col-6">
-                <!-- Name -->
-                <div>
-                    <x-label for="name" :value="__('Name*')"/>
-                    <x-input id="name" type="file" name="upload[]" required multiple/>
-                </div>
-            </div>
-            <div class="col-12">
-
-                <x-button class="mt-4">
-                    {{ __('Add Files')}}
-                </x-button>
-            </div>
-    </form> --}}
 </div>
 
 
