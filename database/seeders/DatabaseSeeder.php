@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\BloodGroup;
+use App\Models\LabTest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -50,6 +51,17 @@ class DatabaseSeeder extends Seeder
             PermissionTableSeeder::class,
             RoleTableSeeder::class,
             UserTableSeeder::class,
+        ]);
+
+        LabTest::create([
+            'name' => 'x-ray',
+            'description' => 'X-ray',
+            'cost' => 1000,
+        ]);
+        LabTest::create([
+            'name' => 'Blood test',
+            'description' => 'Blood Test',
+            'cost' => 800,
         ]);
     }
 }

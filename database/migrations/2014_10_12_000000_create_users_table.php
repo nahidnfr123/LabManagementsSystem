@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->date('dob')->nullable();
             $table->foreignId('blood_groups_id')->nullable()->constrained();
             $table->string('gender')->nullable();
+            $table->float('salary')->nullable();
             $table->tinyInteger('blocked')->default(0);
             $table->string('status')->default('active');
             $table->string('about')->nullable();

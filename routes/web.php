@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\LabTestController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SalaryController;
@@ -47,9 +48,9 @@ Route::post('payment', [PaymentController::class, 'store']);
 
 // Dashboard Routes ...
 Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|laboratorian']], function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        // only Admin Role Routes ...
-        Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    // only Admin Role Routes ...
+    Route::group(['middleware' => ['role:admin']], function () {
         Route::get('hr', [UsersController::class, 'hr'])->name('users.hr');
         Route::get('add-salary/{id}', [UsersController::class, 'addSalary'])->name('users.salary');
         Route::get('patient', [UsersController::class, 'index'])->name('users.patient');
@@ -62,9 +63,10 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|
         Route::get('show-pdf/{id}', [LabTestController::class, 'showPdfPage'])->name('report.pdf.show');
         Route::get('show-report/{id}', [LabTestController::class, 'showPdfReport'])->name('report.show');
         Route::post('add-pdf', [LabTestController::class, 'addPdf'])->name('report.pdf.store');
-        Route::get('set-status/{id}/{status}',[AppointmentController::class, 'setStatus'])->name('appointment.setstatus');
+        Route::get('set-status/{id}/{status}', [AppointmentController::class, 'setStatus'])->name('appointment.setstatus');
         Route::resource('payment', PaymentController::class);
         # Work left to do ....
+        Route::resource('inventory', InventoryController::class);
     });
 });
 

@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     {{ $links ?? "" }}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -221,6 +226,12 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item" {{ isActive('inventory.index') ? 'menu-open' : '' }}>
+                            <a href="{{route('inventory.index')}}" class="nav-link  {{ isActive('inventory.index') }}">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>Inventory</p>
+                            </a>
+                        </li>
                     @endif
                     {{--<li class="nav-item">
                         <a href="pages/widgets.html" class="nav-link">
@@ -348,6 +359,13 @@
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="{{ asset('dist/js/demo.js') }}"></script>
+
+<!-- DataTables -->
+<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<!-- page script -->
 
 {{ $scripts ?? "" }}
 

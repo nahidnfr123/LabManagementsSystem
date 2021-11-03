@@ -64,8 +64,6 @@ class UsersController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required'],
             'gender' => ['required'],
-
-
         ]);
 
         $user = User::create([
@@ -77,6 +75,7 @@ class UsersController extends Controller
             'about' => $request->about,
             'gender' => $request->gender,
             'dob' => $request->dob,
+            'salary' => $request->salary,
 
         ]);
         // SweetAlert::info('User Create', 'A user account is create!');
@@ -131,7 +130,7 @@ class UsersController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required'],
         ]);
-        $user->update($request->only(['name', 'email', 'phone', 'password', 'role']));
+        $user->update($request->only(['name', 'email', 'phone', 'password', 'role', 'salary']));
         return redirect()->back();
     }
     public function addSalary($id)
