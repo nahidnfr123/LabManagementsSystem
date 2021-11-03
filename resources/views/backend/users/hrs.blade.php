@@ -1,9 +1,6 @@
 <x-backend-layout>
 
     <x-slot name="links">
-        <!-- DataTables -->
-        <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     </x-slot>
 
     <!-- Main content -->
@@ -66,13 +63,15 @@
                                             <a href="{{route('users.salary',$user->id)}}" class="btn btn-sm btn-warning"><i class="fas fa-money-bill"></i></a>
                                         </td>
                                         <td>
-                                            <a href="{{route('users.edit',[$user])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form action="{{ route('users.destroy', [$user]) }}" method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit"class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                            </form>
-                                           {{-- <a href="{{ route('users.destroy', ['user'=>$user->id]) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a> --}}
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="{{route('users.edit',[$user])}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                                <form action="{{ route('users.destroy', [$user]) }}" method="POST">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                            </div>
+                                            {{-- <a href="{{ route('users.destroy', ['user'=>$user->id]) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a> --}}
                                         </td>
                                     </tr>
                                 @endforeach
