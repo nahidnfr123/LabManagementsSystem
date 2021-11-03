@@ -84,16 +84,15 @@
                                 <label for="date">Select Date</label>
                                 <input type="date" name="date" value="" class="form-control">
                             </div>
-
+                            {{-- <span id="totalvalue"></sapn> --}}
                             <div class="col-md-6 col-sm-6">
                                 <label for="select">Select Lab Test</label>
                                 <select class="form-control" name="lab_test_ids[]" multiple>
                                     @foreach($labtests as $key => $value)
-                                        <option value="{{$value->id}}">{{$value->name}}</option>
+                                        <option value="{{$value->id}}" onclick="addValue({{json_encode($value->cost)}})">{{$value->name}} | cost: {{$value->cost}}</option>
                                     @endforeach
                                 </select>
                             </div>
-
                             <div class="col-md-12 col-sm-12">
                                 {{-- <label for="telephone">Phone Number</label>
                                 <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone">
@@ -112,6 +111,13 @@
 
     <x-slot name="scripts">
         <script>
+            // var totalamount = 0
+            // function addValue(value) {
+            //     console.log(value);
+            //     totalamount += value;
+            //     // console.log(totalamount)
+            //     $('#totalvalue').text(totalamount);
+            // }
             var amount = {!! $amount !!}
             var user_id = {!! $user_id !!}
             var appointment_id = {!! $appointment_id !!}
