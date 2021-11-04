@@ -61,7 +61,7 @@
         obj.cus_phone = $('#mobile').val();
         obj.cus_email = $('#email').val();
         obj.cus_addr1 = $('#address').val();
-        obj.salary_user_id = {{!! $user->id !!}}
+        obj.salary_user_id = {!! $user->id !!}
         $("#total_amount").change(function(){
             obj.amount = $('#total_amount').val();
              console.log(obj.amount);
