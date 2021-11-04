@@ -67,8 +67,8 @@
                     <!-- SECTION TITLE -->
                         <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
                             <h2>Make an appointment</h2>
+                            <b>Selected Cost:</b><span id="totalvalue"></sapn>
                         </div>
-
                         <div class="wow fadeInUp" data-wow-delay="0.8s">
                             {{-- <div class="col-md-6 col-sm-6">
                                 <label for="name">Name</label>
@@ -84,12 +84,11 @@
                                 <label for="date">Select Date</label>
                                 <input type="date" name="date" value="" class="form-control">
                             </div>
-                            {{-- <span id="totalvalue"></sapn> --}}
                             <div class="col-md-6 col-sm-6">
                                 <label for="select">Select Lab Test</label>
-                                <select class="form-control" name="lab_test_ids[]" multiple>
+                                <select class="form-control" name="lab_test_ids[]" id="costs" multiple>
                                     @foreach($labtests as $key => $value)
-                                        <option value="{{$value->id}}" onclick="addValue({{json_encode($value->cost)}})">{{$value->name}} | cost: {{$value->cost}}</option>
+                                        <option value="{{$value->id}}">{{$value->name}} | cost: {{$value->cost}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -111,13 +110,27 @@
 
     <x-slot name="scripts">
         <script>
-            // var totalamount = 0
-            // function addValue(value) {
-            //     console.log(value);
-            //     totalamount += value;
-            //     // console.log(totalamount)
-            //     $('#totalvalue').text(totalamount);
-            // }
+            $('#totalvalue').html(0);
+            $("#costs").change(function(){
+                var selectedValues = $(this).val();
+                // console.log(selectedValues);
+               var data = {
+                    "_token": "{{ csrf_token() }}",
+                    "id": selectedValues
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '/test-cost',
+                    data: data,
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#totalvalue').html(data);
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            });
             var amount = {!! $amount !!}
             var user_id = {!! $user_id !!}
             var appointment_id = {!! $appointment_id !!}
