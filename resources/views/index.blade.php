@@ -86,7 +86,8 @@
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <label for="costs">Select Lab Test</label>
-                                <select class="form-control" name="lab_test_ids[]" id="costs" multiple
+                                <select class="form-select form-control"
+                                        size="4" multiple  name="lab_test_ids[]" id="costs" multiple
                                         style="background-color: #1a252f; color: white">
                                     @foreach($labtests as $key => $value)
                                         <option value="{{$value->id}}">{{$value->name}} | cost: {{$value->cost}}</option>
@@ -118,7 +119,6 @@
             </div>
         </div>
     </section>
-
 
     <x-slot name="scripts">
         <script>

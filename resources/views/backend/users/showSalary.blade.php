@@ -33,7 +33,8 @@
                              required/>
                 </div>
             </div>
-            <div class="col-12 mt-4">
+            <div class="col-12">
+                <br>
                 <button class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
                         token="if you have any token validation"
                         postdata="your javascript arrays or objects which requires in backend"
@@ -48,18 +49,18 @@
 
     <x-slot name="scripts">
         <!-- DataTables -->
-        <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-        <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-        <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-        <!-- page script -->
+    {{--<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>--}}
+    <!-- page script -->
         <script>
             var obj = {};
             obj.cus_name = $('#customer_name').val();
             obj.cus_phone = $('#mobile').val();
             obj.cus_email = $('#email').val();
             obj.cus_addr1 = $('#address').val();
-            obj.salary_user_id = {{!! $user->id !!}}
+            obj.salary_user_id = {!! $user->id !!}
             $("#total_amount").change(function () {
                 obj.amount = $('#total_amount').val();
                 console.log(obj.amount);
@@ -67,9 +68,7 @@
             $("#salary_date").change(function () {
                 obj.salary_date = $('#salary_date').val();
             });
-
             $('#sslczPayBtn').prop('postdata', obj);
-
             (function (window, document) {
                 var loader = function () {
                     var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];

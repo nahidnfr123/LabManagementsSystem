@@ -24,6 +24,8 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{  asset('frontend/css/tooplate-style.css') }}">
+
+    {{ $links ?? "" }}
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
 @include('sweetalert::alert')
