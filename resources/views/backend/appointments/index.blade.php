@@ -1,9 +1,6 @@
 <x-backend-layout>
 
     <x-slot name="links">
-        <!-- DataTables -->
-        <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     </x-slot>
 
     <!-- Main content -->
@@ -40,14 +37,16 @@
                                         <td>{{$test->status}}</td>
                                         <td>{{$test->appointment_date}}</td>
                                         <td>
-                                            <a href="{{ url('backend/set-status/'.$test->id.'/'.'confirmed'.'/') }}" class="btn btn-sm btn-primary"><i class="fas fa-check"></i> Accept</a>
-                                            <a href="{{ url('backend/set-status/'.$test->id.'/'.'reject'.'/') }}" class="btn btn-sm btn-danger"><i class="fas fa-ban"></i> Reject</a>
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="{{ url('backend/set-status/'.$test->id.'/'.'confirmed'.'/') }}" class="btn btn-sm btn-primary"><i class="fas fa-check"></i> Accept</a>
+                                                <a href="{{ url('backend/set-status/'.$test->id.'/'.'reject'.'/') }}" class="btn btn-sm btn-danger"><i class="fas fa-ban"></i> Reject</a>
+                                            </div>
                                             {{-- <form action="{{ route('lab-test.destroy', [$test]) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit"class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                                             </form> --}}
-{{--                                            <a href="{{ route('users.destroy', ['user'=>$user->id]) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>--}}
+                                            {{--                                            <a href="{{ route('users.destroy', ['user'=>$user->id]) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>--}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -76,12 +75,6 @@
     <!-- /.content -->
 
     <x-slot name="scripts">
-        <!-- DataTables -->
-        <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-        <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-        <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-        <!-- page script -->
         <script>
             $(function () {
                 $("#example1").DataTable({
