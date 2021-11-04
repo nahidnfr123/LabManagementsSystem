@@ -367,7 +367,6 @@
 <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <!-- page script -->
 
-{{ $scripts ?? "" }}
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
@@ -380,5 +379,6 @@
 
 <!-- PAGE SCRIPTS -->
 {{--<script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>--}}
+{{ $scripts ?? "" }}
 </body>
 </html>

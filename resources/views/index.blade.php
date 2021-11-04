@@ -1,12 +1,12 @@
 <x-frontend-layout>
-<!-- NEWS -->
+    <!-- NEWS -->
     @php
         $amount = 0;
         $user_id = null;
         $appointment_id = null;
     @endphp
     @if($lastAppointment)
-         @php
+        @php
             $amount = $lastAppointment->cost;
             $user_id = $lastAppointment->users_id;
             $appointment_id = $lastAppointment->id;
@@ -25,9 +25,9 @@
                     <div class="col-md-12 col-sm-6">
                         <!-- NEWS THUMB -->
                         <div class="news-thumb wow fadeInUp" data-wow-delay="0.4s">
-                            <a href="news-detail.html">
+                            {{--<a href="news-detail.html">
                                 <img src="images/news-image1.jpg" class="img-responsive" alt="">
-                            </a>
+                            </a>--}}
                             <div class="news-info">
                                 {{-- <span>March 08, 2018</span> --}}
                                 <span>Appoint Time: {{$lastAppointment->appointment_date}}</span>
@@ -50,8 +50,8 @@
                 </div>
             </div>
         </section>
-    @endif
-    <!-- MAKE AN APPOINTMENT -->
+@endif
+<!-- MAKE AN APPOINTMENT -->
     <section id="appointment" data-stellar-background-ratio="3">
         <div class="container">
             <div class="row">
@@ -67,7 +67,7 @@
                     <!-- SECTION TITLE -->
                         <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
                             <h2>Make an appointment</h2>
-                            <b>Selected Cost:</b><span id="totalvalue"></sapn>
+                            <b>Selected Cost:</b><span id="totalvalue"></span>
                         </div>
                         <div class="wow fadeInUp" data-wow-delay="0.8s">
                             {{-- <div class="col-md-6 col-sm-6">
@@ -82,11 +82,12 @@
 
                             <div class="col-md-6 col-sm-6">
                                 <label for="date">Select Date</label>
-                                <input type="date" name="date" value="" class="form-control">
+                                <input id="date" type="date" name="date" value="" class="form-control">
                             </div>
                             <div class="col-md-6 col-sm-6">
-                                <label for="select">Select Lab Test</label>
-                                <select class="form-control" name="lab_test_ids[]" id="costs" multiple>
+                                <label for="costs">Select Lab Test</label>
+                                <select class="form-control" name="lab_test_ids[]" id="costs" multiple
+                                        style="background-color: #1a252f; color: white">
                                     @foreach($labtests as $key => $value)
                                         <option value="{{$value->id}}">{{$value->name}} | cost: {{$value->cost}}</option>
                                     @endforeach
@@ -97,7 +98,18 @@
                                 <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone">
                                 <label for="Message">Additional Message</label>
                                 <textarea class="form-control" rows="5" id="message" name="message" placeholder="Message"></textarea> --}}
-                                <button type="submit" class="form-control" id="cf-submit">Submit Button</button>
+
+                                <div class="my-4">
+                                    @auth
+                                        <button type="submit" class="form-control" id="cf-submit">Continue</button>
+                                    @else
+                                        <div class="mb-4 text-align-center">
+                                            Please
+                                            <a href="login" class="text-info btn btn-primary"><span>LOGIN</span></a>
+                                            to book an appointment.
+                                        </div>
+                                    @endauth
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -111,10 +123,10 @@
     <x-slot name="scripts">
         <script>
             $('#totalvalue').html(0);
-            $("#costs").change(function(){
-                var selectedValues = $(this).val();
+            $("#costs").change(function () {
+                let selectedValues = $(this).val();
                 // console.log(selectedValues);
-               var data = {
+                let data = {
                     "_token": "{{ csrf_token() }}",
                     "id": selectedValues
                 }
@@ -131,10 +143,10 @@
                     }
                 });
             });
-            var amount = {!! $amount !!}
-            var user_id = {!! $user_id !!}
-            var appointment_id = {!! $appointment_id !!}
-            var obj = {};
+            let amount = {!! $amount !!};
+            let user_id = {!! $user_id?:0 !!};
+            let appointment_id = {!! $appointment_id?:0 !!};
+            let obj = {};
             obj.cus_name = $('#customer_name').val();
             obj.cus_phone = $('#mobile').val();
             obj.cus_email = $('#email').val();
@@ -147,8 +159,8 @@
             $('#sslczPayBtn').prop('postdata', obj);
 
             (function (window, document) {
-                var loader = function () {
-                    var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+                let loader = function () {
+                    let script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
                     // script.src = "https://seamless-epay.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR LIVE
                     script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR SANDBOX
                     tag.parentNode.insertBefore(script, tag);
