@@ -45,6 +45,7 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 
 Route::resource('userappointment', AppointmentController::class)->only(['store']);
 Route::post('payment', [PaymentController::class, 'store']);
+Route::post('test-cost', [LabTestController::class, 'totalTestCost']);
 
 // Dashboard Routes ...
 Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|laboratorian']], function () {

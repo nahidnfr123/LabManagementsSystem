@@ -47,6 +47,15 @@ class LabTestController extends Controller
         alert()->success('Success message', 'Lab Test created successfully.');
         return redirect()->back();
     }
+    public function totalTestCost(Request $request)
+    {
+        $labtest = LabTest::find($request->id);
+        $total_count = 0;
+        foreach ($labtest as $key => $value) {
+            $total_count+=$value->cost;
+        }
+        return $total_count;
+    }
     public function showPdfPage($id)
     {
         $labtests = LabTest::find($id);
