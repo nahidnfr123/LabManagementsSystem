@@ -20,7 +20,9 @@ class CreateAppointmentsTable extends Migration
             $table->enum('status', ['pending', 'confirmed', 'reject']);
             $table->double('cost', 10, 2)->nullable();
             $table->string('order_id')->nullable(); //auto generated number
-            $table->foreignId('users_id')->constrained(); //FK
+            $table->foreignId('users_id')
+                ->constrained()
+                ->onDelete('CASCADE');
             $table->softDeletes();
             $table->timestamps();
         });

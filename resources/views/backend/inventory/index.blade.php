@@ -15,7 +15,7 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="mb-3">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".addUserModal">Add Item</button>
+                                <a href="{{route('inventory.create')}}" class="btn btn-primary">Add Item</a>
                             </div>
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
@@ -33,10 +33,10 @@
                                     <tr>
                                         <td>{{$key}}</td>
                                         <td>
-                                            <img src="{{$item->photo}}" alt="" class="rounded" style="height: 30px; width: 30px; object-fit: cover; object-position: center;">
+                                            <img src="{{$item->getFirstMediaUrl('inventory')}}" alt="" class="rounded" style="height: 50px; object-fit: cover; object-position: center;">
                                             {{$item->item_name}}
                                         </td>
-                                        <td>{{$item->description}}</td>
+                                        <td>{!! $item->description !!}</td>
                                         <td>{{$item->stock}}</td>
                                         <td>{{$item->status}}</td>
                                         <td>
@@ -44,7 +44,7 @@
                                             <form action="{{ route('inventory.destroy', [$item]) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="submit"class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                                             </form>
                                             {{-- <a href="{{ route('users.destroy', ['user'=>$user->id]) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a> --}}
                                         </td>
@@ -77,12 +77,6 @@
     <!-- /.content -->
 
     <x-slot name="scripts">
-        <!-- DataTables -->
-        <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-        <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-        <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-        <!-- page script -->
         <script>
             $(function () {
                 $("#example1").DataTable({

@@ -67,7 +67,6 @@
                     <!-- SECTION TITLE -->
                         <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
                             <h2>Make an appointment</h2>
-                            <b>Selected Cost:</b><span id="totalvalue"></span>
                         </div>
                         <div class="wow fadeInUp" data-wow-delay="0.8s">
                             {{-- <div class="col-md-6 col-sm-6">
@@ -79,20 +78,24 @@
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
                             </div> --}}
+                            <x-auth-validation-errors class="mb-4" :errors="$errors"/>
 
                             <div class="col-md-6 col-sm-6">
                                 <label for="date">Select Date</label>
-                                <input id="date" type="date" name="date" value="" class="form-control">
+                                <input id="date" type="date" name="appointment_date" value="" class="form-control">
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <label for="costs">Select Lab Test</label>
                                 <select class="form-select form-control"
-                                        size="4" multiple  name="lab_test_ids[]" id="costs" multiple
+                                        size="4" multiple name="lab_test_ids[]" id="costs" multiple
                                         style="background-color: #1a252f; color: white">
                                     @foreach($labtests as $key => $value)
                                         <option value="{{$value->id}}">{{$value->name}} | cost: {{$value->cost}}</option>
                                     @endforeach
                                 </select>
+                                <div class="mb-2">
+                                    <b>Total Cost:</b><span id="totalvalue"></span>
+                                </div>
                             </div>
                             <div class="col-md-12 col-sm-12">
                                 {{-- <label for="telephone">Phone Number</label>

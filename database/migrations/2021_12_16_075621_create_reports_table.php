@@ -17,6 +17,7 @@ class CreateReportsTable extends Migration
             $table->increments('id');
             $table->foreignId('appointments_id')->constrained();
             $table->foreignId('lab_tests_id')->constrained();
+            $table->string('title');
             $table->string('pdf');
             //pdf report
             $table->timestamps();

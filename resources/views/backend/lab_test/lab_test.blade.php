@@ -85,6 +85,7 @@
 
     <x-slot name="scripts">
         <script>
+            CKEDITOR.replace( 'description' );
             $(function () {
                 $("#example1").DataTable({
                     "responsive": true,

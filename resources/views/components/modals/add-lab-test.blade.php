@@ -25,15 +25,13 @@
                         </div>
                         {{-- start additional info  --}}
                         <div class="col-6">
-                            <div class="mt-4">
-                                <x-label for="cost" :value="__('Cost*')"/>
+                            <x-label for="cost" :value="__('Cost*')"/>
 
-                                <x-input id="cost"
-                                         type="number"
-                                         name="cost"
-                                         :value="old('cost')"
-                                         required/>
-                            </div>
+                            <x-input id="cost"
+                                     type="number"
+                                     name="cost"
+                                     :value="old('cost')"
+                                     required/>
                         </div>
                         {{-- second row  --}}
 
@@ -51,7 +49,7 @@
                                 <x-label for="description" :value="__('About')"/>
 
                                 <div class="form-floating">
-                                    <textarea class="form-control" name="description" placeholder="description" id="about_user"></textarea>
+                                    <textarea class="form-control" name="description" placeholder="description" id="description"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -69,5 +67,3 @@
         </div>
     </div>
 </div>
-
-

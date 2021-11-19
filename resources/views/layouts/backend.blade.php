@@ -20,6 +20,8 @@
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    {{--<script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>--}}
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     {{ $links ?? "" }}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -147,21 +149,21 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('lab-test.index')}}" class="nav-link {{ isActive('users.hr') }}">
+                                    <a href="{{route('lab-test.index')}}" class="nav-link {{ isActive('lab-test.index') }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Lab Test</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item has-treeview {{ isActive('lab-test.index') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link {{ isActive('lab-test.index') }}">
+                        <li class="nav-item has-treeview {{ isActive('appointment.index') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{ isActive('appointment.index') }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>Manage Apointments<i class="right fas fa-angle-left"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('appointment.index')}}" class="nav-link {{ isActive('users.hr') }}">
+                                    <a href="{{route('appointment.index')}}" class="nav-link {{ isActive('appointment.index') }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Apointments</p>
                                     </a>

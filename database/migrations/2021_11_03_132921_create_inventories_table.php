@@ -19,7 +19,6 @@ class CreateInventoriesTable extends Migration
             $table->longText('description');
             $table->integer('stock');
             $table->string('status');
-            $table->string('photo');
             $table->timestamps();
         });
     }

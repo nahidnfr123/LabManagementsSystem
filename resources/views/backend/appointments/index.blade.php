@@ -10,17 +10,18 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Hr</h3>
+                            <h3 class="card-title">Appointments</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div class="mb-3">
+                            {{--<div class="mb-3">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".addUserModal">Add Lab Test</button>
-                            </div>
+                            </div>--}}
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th>Appointment Number</th>
+                                    <th>User Info</th>
                                     <th>Cost</th>
                                     <th>Status</th>
                                     <th>Appointment Date</th>
@@ -32,6 +33,11 @@
                                     <tr>
                                         <td>
                                             {{$test->appointment_no}}
+                                        </td>
+                                        <td>
+                                            <div>Name: <strong>{{$test->user->name}}</strong></div>
+                                            <div>Email: <strong>{{$test->user->email}}</strong></div>
+                                            <div>Phone: <strong>{{$test->user->phone}}</strong></div>
                                         </td>
                                         <td>{{$test->cost}}</td>
                                         <td>{{$test->status}}</td>
@@ -53,9 +59,11 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Details</th>
-                                    <th>Joined</th>
+                                    <th>Appointment Number</th>
+                                    <th>User Info</th>
+                                    <th>Cost</th>
+                                    <th>Status</th>
+                                    <th>Appointment Date</th>
                                     <th>Action</th>
                                 </tr>
                                 </tfoot>
@@ -76,19 +84,16 @@
 
     <x-slot name="scripts">
         <script>
+
             $(function () {
                 $("#example1").DataTable({
                     "responsive": true,
                     "autoWidth": false,
-                });
-                $('#example2').DataTable({
                     "paging": true,
                     "lengthChange": false,
-                    "searching": false,
-                    "ordering": true,
+                    "searching": true,
+                    "ordering": false,
                     "info": true,
-                    "autoWidth": false,
-                    "responsive": true,
                 });
             });
 

@@ -49,7 +49,6 @@ class User extends Authenticatable
     }
 
 
-
     protected static function boot()
     {
         parent::boot();
@@ -92,6 +91,11 @@ class User extends Authenticatable
     public function getCreatedAtAttribute($value)
     {
         return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Appointment::class);
     }
 
 
