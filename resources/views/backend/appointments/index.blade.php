@@ -24,6 +24,7 @@
                                     <th>User Info</th>
                                     <th>Cost</th>
                                     <th>Status</th>
+                                    <th>Tests</th>
                                     <th>Appointment Date</th>
                                     <th>Action</th>
                                 </tr>
@@ -41,11 +42,27 @@
                                         </td>
                                         <td>{{$test->cost}}</td>
                                         <td>{{$test->status}}</td>
+                                        <td>
+                                            <ul>
+                                                @foreach($test->labTests as $tests)
+                                                    <li>{{$tests->name}}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
                                         <td>{{$test->appointment_date}}</td>
                                         <td>
                                             <div class="btn-group btn-group-sm">
-                                                <a href="{{ url('backend/set-status/'.$test->id.'/'.'confirmed'.'/') }}" class="btn btn-sm btn-primary"><i class="fas fa-check"></i> Accept</a>
-                                                <a href="{{ url('backend/set-status/'.$test->id.'/'.'reject'.'/') }}" class="btn btn-sm btn-danger"><i class="fas fa-ban"></i> Reject</a>
+                                                @if($test->labReports && count($test->labReports))
+                                                    <a href="{{ url('backend/view-report/'.$test->id) }}" class="btn btn-sm btn-success">
+                                                        View {{count($test->labReports)}} Report
+                                                    </a>
+                                                @endif
+                                                @if($test->status !== 'confirmed')
+                                                    <a href="{{ url('backend/set-status/'.$test->id.'/'.'confirmed'.'/') }}" class="btn btn-sm btn-primary"><i class="fas fa-check"></i> Accept</a>
+                                                    <a href="{{ url('backend/set-status/'.$test->id.'/'.'reject'.'/') }}" class="btn btn-sm btn-danger"><i class="fas fa-ban"></i> Reject</a>
+                                                @else
+                                                    <a href="{{ url('backend/add-report/'.$test->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-check"></i> Add Report</a>
+                                                @endif
                                             </div>
                                             {{-- <form action="{{ route('lab-test.destroy', [$test]) }}" method="POST">
                                                 @method('DELETE')
@@ -63,6 +80,7 @@
                                     <th>User Info</th>
                                     <th>Cost</th>
                                     <th>Status</th>
+                                    <th>Tests</th>
                                     <th>Appointment Date</th>
                                     <th>Action</th>
                                 </tr>

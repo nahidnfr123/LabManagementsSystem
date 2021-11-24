@@ -16,7 +16,9 @@ class CreateAppointmentsTable extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->integer('appointment_no');//auto generated number
-            $table->dateTime('appointment_date')->nullable();
+            $table->date('appointment_date')->nullable();
+            $table->string('appointment_time')->nullable();
+            $table->string('address')->nullable();
             $table->enum('status', ['pending', 'confirmed', 'reject']);
             $table->double('cost', 10, 2)->nullable();
             $table->string('order_id')->nullable(); //auto generated number

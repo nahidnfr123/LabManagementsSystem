@@ -9,8 +9,10 @@ class LabReports extends Model
 {
     use HasFactory;
     protected  $guarded = [];
-    public function labTest()
+
+
+    public function appointment(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(LabTest::class);
+        return $this->belongsTo(Appointment::class);
     }
 }

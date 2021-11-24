@@ -9,6 +9,7 @@ use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Models\Appointment;
+use App\Models\LabReports;
 use App\Models\LabTest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +19,7 @@ Route::get('/', function () {
     $lastAppointment = null;
     if (isset(Auth::user()->id)) {
         $lastAppointment = Appointment::where('users_id', Auth::user()->id)
-            ->where('status', 'confirmed')
+            // ->where('status', 'confirmed')
             ->where('order_id', null)
             ->latest()->first();
     }
@@ -47,11 +48,23 @@ Route::resource('userappointment', AppointmentController::class)->only(['store']
 Route::post('payment', [PaymentController::class, 'store']);
 Route::post('test-cost', [LabTestController::class, 'totalTestCost']);
 
+Route::get('profile', function () {
+    $appointments = Appointment::where('users_id', Auth::user()->id)
+        // ->where('status', 'confirmed')
+        //->where('order_id', null)
+        ->latest()->get();
+    return view('profile', compact('appointments'));
+})->middleware('auth');
+Route::get('view-report/{id}', function ($id) {
+    $labtests = LabReports::with('appointment')->where('appointments_id', $id)->get();
+    return view('view-report', compact('labtests'));
+});
+
 // Dashboard Routes ...
 Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|laboratorian']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     // only Admin Role Routes ...
-    Route::group(['middleware' => ['role:admin']], function () {
+    Route::group(['middleware' => ['role:admin|staff']], function () {
         Route::get('hr', [UsersController::class, 'hr'])->name('users.hr');
         Route::get('add-salary/{id}', [UsersController::class, 'addSalary'])->name('users.salary');
         Route::get('patient', [UsersController::class, 'index'])->name('users.patient');
@@ -61,8 +74,8 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'role:admin|staff|
         Route::resource('lab-test', LabTestController::class);
         Route::resource('salary', SalaryController::class);
         Route::resource('appointment', AppointmentController::class);
-        Route::get('show-pdf/{id}', [LabTestController::class, 'showPdfPage'])->name('report.pdf.show');
-        Route::get('show-report/{id}', [LabTestController::class, 'showPdfReport'])->name('report.show');
+        Route::get('add-report/{id}', [LabTestController::class, 'addReport'])->name('report.pdf.show');
+        Route::get('view-report/{id}', [LabTestController::class, 'showPdfReport'])->name('report.show');
         Route::post('add-pdf', [LabTestController::class, 'addPdf'])->name('report.pdf.store');
         Route::get('set-status/{id}/{status}', [AppointmentController::class, 'setStatus'])->name('appointment.setstatus');
         Route::resource('payment', PaymentController::class);

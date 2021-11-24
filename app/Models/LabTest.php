@@ -11,8 +11,8 @@ class LabTest extends Model
 
     protected $guarded = [];
 
-    public function appointments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function appointments()
     {
-        return $this->hasMany(Appointment::class);
+        return $this->belongsToMany(Appointment::class, 'appointments_lab_test', 'lab_tests_id', 'appointments_id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BloodGroup;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -106,7 +107,10 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('backend.users.hrs_edit', compact('user'));
+        // $roles = $user->getRoleNames();
+        $roles = Role::all();
+        $bloodGroups = BloodGroup::all();
+        return view('backend.users.user_edit', compact('user', 'roles', 'bloodGroups'));
     }
 
     /**
@@ -120,12 +124,11 @@ class UsersController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'numeric', 'digits:11', 'regex:/(01)[0-9]{9}/', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required'],
+            //'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-        $user->update($request->only(['name', 'email', 'phone', 'password', 'role', 'salary']));
+        $user->update($request->all());
         return redirect()->back();
     }
 

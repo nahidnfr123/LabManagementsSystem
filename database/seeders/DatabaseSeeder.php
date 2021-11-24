@@ -19,10 +19,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         BloodGroup::create([
-            'group_name' => 'Null'
-        ]);
-
-        BloodGroup::create([
             'group_name' => 'A+'
         ]);
         BloodGroup::create([

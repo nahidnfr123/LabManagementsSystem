@@ -15,8 +15,9 @@ class CreateLabReportsTable extends Migration
     {
         Schema::create('lab_reports', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger("lab_test_id")->nullable();
+            $table->unsignedInteger("appointments_id")->nullable();
             $table->string("file_name")->nullable();
+            $table->string('title');
             $table->timestamps();
         });
     }

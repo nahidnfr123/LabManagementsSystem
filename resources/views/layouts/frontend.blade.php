@@ -24,7 +24,17 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{  asset('frontend/css/tooplate-style.css') }}">
+    <link rel="stylesheet" href="{{  asset('asset_front/material-date-range-picker/dist/duDatepicker.min.css') }}">
+    <link rel="stylesheet" href="{{  asset('asset_front/material-date-range-picker/dist/duDatepicker-theme.css') }}">
+    <script src="{{  asset('asset_front/material-date-range-picker/dist/duDatepicker.min.js') }}"></script>
 
+    <link rel="stylesheet" href="{{  asset('asset_front/user-friendly-time-picker/dist/css/timepicker.min.css') }}">
+
+    <style>
+        .form-control {
+            border: 2px solid black
+        }
+    </style>
     {{ $links ?? "" }}
 </head>
 <body id="top" data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
@@ -33,9 +43,7 @@
 <!-- PRE LOADER -->
 <section class="preloader">
     <div class="spinner">
-
         <span class="spinner-rotate"></span>
-
     </div>
 </section>
 
@@ -58,7 +66,7 @@
 
 
 <!-- MENU -->
-<section class="navbar navbar-default navbar-static-top" role="navigation">
+<section class="navbar navbar-default navbar-static-top" role="navigation" style="z-index: 10 !important;">
     <div class="container">
         <div class="navbar-header">
             <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -74,28 +82,32 @@
         <!-- MENU LINKS -->
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#top" class="smoothScroll">Home</a></li>
+                <li><a href="/" class="smoothScroll">Home</a></li>
                 @if (Route::has('login'))
                     @auth
-                        <li><a href="{{ url('/backend') }}">Dashboard</a></li>
+                        @role('patient')
+                        <li><a href="{{ url('/profile') }}">Profile </a></li>
                     @else
-                        <li><a href="{{ route('login') }}">Log in</a></li>
-                        @if (Route::has('register'))
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @endif
+                        <li><a href="{{ url('/backend') }}">Dashboard</a></li>
+                        @endrole
+                        @else
+                            <li><a href="{{ route('login') }}">Log in</a></li>
+                            @if (Route::has('register'))
+                                <li><a href="{{ route('register') }}">Register</a></li>
+                            @endif
+                        @endauth
+                    @endif
+                    @auth
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}" style="margin: 12px; padding: 0">
+                                @csrf
+                                <a href="{{route('logout')}}"
+                                   onclick="event.preventDefault();this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </a>
+                            </form>
+                        </li>
                     @endauth
-                @endif
-                @auth
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}" style="margin: 12px; padding: 0">
-                            @csrf
-                            <a href="{{route('logout')}}"
-                               onclick="event.preventDefault();this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </a>
-                        </form>
-                    </li>
-                @endauth
             </ul>
         </div>
 
@@ -191,6 +203,7 @@
 
 <!-- SCRIPTS -->
 <script src="{{  asset('frontend/js/jquery.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
 <script src="{{  asset('frontend/js/bootstrap.min.js') }}"></script>
 <script src="{{  asset('frontend/js/jquery.sticky.js') }}"></script>
 <script src="{{  asset('frontend/js/jquery.stellar.min.js') }}"></script>
@@ -198,6 +211,7 @@
 <script src="{{  asset('frontend/js/smoothscroll.js') }}"></script>
 <script src="{{  asset('frontend/js/owl.carousel.min.js') }}"></script>
 <script src="{{  asset('frontend/js/custom.js') }}"></script>
+
 {{ $scripts ?? "" }}
 </body>
 </html>

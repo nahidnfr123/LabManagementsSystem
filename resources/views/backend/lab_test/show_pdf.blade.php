@@ -15,8 +15,14 @@
             @csrf
             {{-- {{dd($user);}} --}}
 
-            <input type="hidden" name="labtest_id" value="{{$labtests->id}}">
+            <input type="hidden" name="appointments_id" value="{{$appointment->id}}">
             <div class="row">
+                <div class="col-6">
+                    <x-label for="appointment_no" :value="__('Appointment No *')"/>
+                    <input type="text" name="" class="form-control" value="{{$appointment->appointment_no}}" disabled readonly>
+                </div>
+                <div class="col-6">
+                </div>
                 <div class="col-6">
                     <!-- Name -->
                     <div>

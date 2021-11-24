@@ -120,7 +120,8 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    @if(auth()->check() && auth()->user()->hasRole('admin'))
+                    {{--@if(auth()->check() && auth()->user()->hasRole('admin'))--}}
+                    @if(auth()->check())
                         <li class="nav-header">Human resource</li>
                         <li class="nav-item has-treeview {{ isActive('users.patient') || isActive('users.hr') ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ isActive('users.patient') || isActive('users.hr') }}">
@@ -128,20 +129,26 @@
                                 <p>Manage Users<i class="right fas fa-angle-left"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
+                                @hasanyrole('admin')
                                 <li class="nav-item">
                                     <a href="{{route('users.hr')}}" class="nav-link {{ isActive('users.hr') }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Hr</p>
                                     </a>
                                 </li>
+                                @endhasanyrole
+                                @hasanyrole('admin|staff')
                                 <li class="nav-item">
                                     <a href="{{route('users.patient')}}" class="nav-link {{ isActive('users.patient') }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Patient</p>
                                     </a>
                                 </li>
+                                @endhasanyrole
                             </ul>
                         </li>
+
+                        @hasanyrole('admin|staff')
                         <li class="nav-item has-treeview {{ isActive('lab-test.index') ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ isActive('lab-test.index') }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -156,26 +163,33 @@
                                 </li>
                             </ul>
                         </li>
+                        @endhasanyrole
+
+                        @hasanyrole('admin|staff')
                         <li class="nav-item has-treeview {{ isActive('appointment.index') ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ isActive('appointment.index') }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>Manage Apointments<i class="right fas fa-angle-left"></i></p>
+                                <p>Manage Appointments<i class="right fas fa-angle-left"></i></p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{route('appointment.index')}}" class="nav-link {{ isActive('appointment.index') }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Apointments</p>
+                                        <p>Appointments</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
+                        @endhasanyrole
+
+                        @hasanyrole('admin|staff')
                         <li class="nav-item" {{ isActive('inventory.index') ? 'menu-open' : '' }}>
                             <a href="{{route('inventory.index')}}" class="nav-link  {{ isActive('inventory.index') }}">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>Inventory</p>
                             </a>
                         </li>
+                        @endhasanyrole
                     @endif
                     {{--<li class="nav-item">
                         <a href="pages/widgets.html" class="nav-link">

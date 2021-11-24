@@ -5,6 +5,20 @@
         $user_id = null;
         $appointment_id = null;
     @endphp
+    @if(Session::has('success-transaction'))
+        <div class="text-center">
+            <div class="alert alert-success">
+                {{Session::get('success-transaction')}}
+            </div>
+        </div>
+    @endif
+    @if(Session::has('error'))
+        <div class="text-center">
+            <div class="alert alert-danger">
+                {{Session::get('error')}}
+            </div>
+        </div>
+    @endif
     @if($lastAppointment)
         @php
             $amount = $lastAppointment->cost;
@@ -30,8 +44,10 @@
                             </a>--}}
                             <div class="news-info">
                                 {{-- <span>March 08, 2018</span> --}}
-                                <span>Appoint Time: {{$lastAppointment->appointment_date}}</span>
-                                <h3><b>Status:</b> Confirmed</h3>
+                                <span>Appoint No: {{$lastAppointment->appointment_no}}</span>
+                                <span>Appoint Date: {{$lastAppointment->appointment_date}}</span>
+                                <span>Appoint Time: {{$lastAppointment->appointment_time}}</span>
+                                <h3><b>Appointment Status:</b> {{$lastAppointment->status}}</h3>
                                 <p>Amount:{{$lastAppointment->cost}}</p>
                                 <div class="author">
                                     {{-- <img src="images/author-image.jpg" class="img-responsive" alt=""> --}}
@@ -50,81 +66,106 @@
                 </div>
             </div>
         </section>
-@endif
-<!-- MAKE AN APPOINTMENT -->
-    <section id="appointment" data-stellar-background-ratio="3">
-        <div class="container">
-            <div class="row">
+    @else
+    <!-- MAKE AN APPOINTMENT -->
+        <section id="appointment" data-stellar-background-ratio="3">
+            <div class="container mb-5">
+                <div class="row">
 
-                <div class="col-md-6 col-sm-6">
-                    <img src="{{ asset('images/appointment-image.jpg') }}" class="img-responsive" alt="">
-                </div>
+                    <div class="col-md-6 col-sm-6">
+                        <img src="{{ asset('images/appointment-image.jpg') }}" class="img-responsive" alt="">
+                    </div>
 
-                <div class="col-md-6 col-sm-6">
-                    <!-- CONTACT FORM HERE -->
-                    <form id="appointment-form" role="form" method="post" action="{{ route('userappointment.store') }}">
-                    @csrf
-                    <!-- SECTION TITLE -->
-                        <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
-                            <h2>Make an appointment</h2>
-                        </div>
-                        <div class="wow fadeInUp" data-wow-delay="0.8s">
-                            {{-- <div class="col-md-6 col-sm-6">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Full Name">
+                    <div class="col-md-12">
+                        <!-- CONTACT FORM HERE -->
+                        <form id="appointment-form" role="form" method="post" action="{{ route('userappointment.store') }}">
+                        @csrf
+                        <!-- SECTION TITLE -->
+                            <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
+                                <h2>Make an appointment</h2>
                             </div>
+                            <div class="wow fadeInUp" data-wow-delay="0.8s">
+                                {{-- <div class="col-md-6 col-sm-6">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Full Name">
+                                </div>
 
-                            <div class="col-md-6 col-sm-6">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
-                            </div> --}}
-                            <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
+                                </div> --}}
+                                <x-auth-validation-errors class="mb-4" :errors="$errors"/>
 
-                            <div class="col-md-6 col-sm-6">
-                                <label for="date">Select Date</label>
-                                <input id="date" type="date" name="appointment_date" value="" class="form-control">
-                            </div>
-                            <div class="col-md-6 col-sm-6">
-                                <label for="costs">Select Lab Test</label>
-                                <select class="form-select form-control"
-                                        size="4" multiple name="lab_test_ids[]" id="costs" multiple
-                                        style="background-color: #1a252f; color: white">
-                                    @foreach($labtests as $key => $value)
-                                        <option value="{{$value->id}}">{{$value->name}} | cost: {{$value->cost}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="mb-2">
-                                    <b>Total Cost:</b><span id="totalvalue"></span>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="datepicker">Select Date</label>
+                                        <input type='text' class="form-control" name="appointment_date" id="datepicker" data-theme="myTheme" readonly style="border: 2px solid #000;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="timepicker">Select Time</label>
+                                        <input class="form-control bs-timepicker" type="text" name="appointment_time" id="timepicker" readonly style="border: 2px solid #000;"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="address">Address</label>
+                                    <textarea class="form-control" name="address" id="address"
+                                              style="border: 2px solid #000;"></textarea>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <label for="costs">Select Lab Test</label>
+                                    <select class="form-select form-control"
+                                            size="4" multiple name="lab_test_ids[]" id="costs" multiple
+                                            style="background-color: #1a252f; color: white">
+                                        @foreach($labtests as $key => $value)
+                                            <option value="{{$value->id}}">{{$value->name}} | cost: {{$value->cost}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="mb-2">
+                                        <b>Total Cost:</b><span id="totalvalue"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    {{-- <label for="telephone">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone">
+                                    <label for="Message">Additional Message</label>
+                                    <textarea class="form-control" rows="5" id="message" name="message" placeholder="Message"></textarea> --}}
+
+                                    <div class="my-4">
+                                        @auth
+                                            <button type="submit" class="form-control" id="cf-submit">Continue</button>
+                                        @else
+                                            <div class="mb-4 text-align-center">
+                                                Please
+                                                <a href="login" class="text-info btn btn-primary"><span>LOGIN</span></a>
+                                                to book an appointment.
+                                            </div>
+                                        @endauth
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-sm-12">
-                                {{-- <label for="telephone">Phone Number</label>
-                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone">
-                                <label for="Message">Additional Message</label>
-                                <textarea class="form-control" rows="5" id="message" name="message" placeholder="Message"></textarea> --}}
+                        </form>
+                    </div>
 
-                                <div class="my-4">
-                                    @auth
-                                        <button type="submit" class="form-control" id="cf-submit">Continue</button>
-                                    @else
-                                        <div class="mb-4 text-align-center">
-                                            Please
-                                            <a href="login" class="text-info btn btn-primary"><span>LOGIN</span></a>
-                                            to book an appointment.
-                                        </div>
-                                    @endauth
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                 </div>
-
             </div>
-        </div>
-    </section>
-
+        </section>
+    @endif
     <x-slot name="scripts">
+        <script src="{{  asset('asset_front/user-friendly-time-picker/dist/js/timepicker.min.js') }}"></script>
         <script>
+            duDatepicker('#datepicker', {
+                format: 'yyyy-mm-dd',
+                minDate: 'today',
+                maxDate: '12/30/2022',
+                theme: 'myTheme',
+            });
+            $(function () {
+                $('.bs-timepicker').timepicker();
+            });
+
+
             $('#totalvalue').html(0);
             $("#costs").change(function () {
                 let selectedValues = $(this).val();

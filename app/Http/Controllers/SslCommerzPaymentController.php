@@ -95,9 +95,9 @@ class SslCommerzPaymentController extends Controller
         # Here you have to receive all the order data to initate the payment.
         # Lets your oder trnsaction informations are saving in a table called "orders"
         # In orders table order uniq identity is "transaction_id","status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
-        $requestData = (array) json_decode($request->cart_json);
+        $requestData = (array)json_decode($request->cart_json);
         $post_data = array();
-        $post_data['total_amount'] =(int) $requestData['amount']; # You cant not pay less than 10
+        $post_data['total_amount'] = (int)$requestData['amount']; # You cant not pay less than 10
         $post_data['currency'] = "BDT";
         $post_data['tran_id'] = uniqid(); // tran_id must be unique
 
@@ -180,7 +180,6 @@ class SslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
-        echo "Transaction is Successful";
 
         $tran_id = $request->input('tran_id');
         $amount = $request->input('amount');
@@ -205,7 +204,7 @@ class SslCommerzPaymentController extends Controller
                 $update_product = DB::table('orders')
                     ->where('transaction_id', $tran_id)
                     ->update(['status' => 'Processing']);
-                echo "<br >Transaction is successfully Completed";
+                return redirect()->route('index')->with('success-transaction', 'Transaction successful.');
             } else {
                 /*
                 That means IPN did not work or IPN URL was not set in your merchant panel and Transation validation failed.
@@ -214,19 +213,18 @@ class SslCommerzPaymentController extends Controller
                 $update_product = DB::table('orders')
                     ->where('transaction_id', $tran_id)
                     ->update(['status' => 'Failed']);
-                echo "validation Fail";
+
+                return redirect()->back()->withErrors(['error' => 'Invalid Transaction']);
             }
         } else if ($order_detials->status == 'Processing' || $order_detials->status == 'Complete') {
             /*
              That means through IPN Order status already updated. Now you can just show the customer that transaction is completed. No need to udate database.
              */
-            echo "Transaction is successfully Completed";
+            return redirect()->route('index')->with('success-transaction', 'Transaction successful.');
         } else {
             #That means something wrong happened. You can redirect customer to your product page.
-            echo "Invalid Transaction";
+            return redirect()->back()->withErrors(['error' => 'Invalid Transaction']);
         }
-
-
     }
 
     public function fail(Request $request)
@@ -241,12 +239,14 @@ class SslCommerzPaymentController extends Controller
             $update_product = DB::table('orders')
                 ->where('transaction_id', $tran_id)
                 ->update(['status' => 'Failed']);
-            echo "Transaction is Falied";
-        } else if ($order_detials->status == 'Processing' || $order_detials->status == 'Complete') {
-            echo "Transaction is already Successful";
-        } else {
-            echo "Transaction is Invalid";
+            return redirect()->back()->withErrors(['error' => 'Invalid Transaction']);
         }
+
+        if ($order_detials->status == 'Processing' || $order_detials->status == 'Complete') {
+            return redirect()->route('index')->with('success-transaction', 'Transaction successful.');
+        }
+
+        return redirect()->back()->withErrors(['error' => 'Invalid Transaction']);
 
     }
 
@@ -262,14 +262,14 @@ class SslCommerzPaymentController extends Controller
             $update_product = DB::table('orders')
                 ->where('transaction_id', $tran_id)
                 ->update(['status' => 'Canceled']);
-            echo "Transaction is Cancel";
-        } else if ($order_detials->status == 'Processing' || $order_detials->status == 'Complete') {
-            echo "Transaction is already Successful";
-        } else {
-            echo "Transaction is Invalid";
+            return redirect()->back()->withErrors(['error' => 'Invalid Transaction']);
         }
 
+        if ($order_detials->status == 'Processing' || $order_detials->status == 'Complete') {
+            return redirect()->route('index')->with('success-transaction', 'Transaction successful.');
+        }
 
+        return redirect()->back()->withErrors(['error' => 'Invalid Transaction']);
     }
 
     public function ipn(Request $request)
@@ -298,32 +298,27 @@ class SslCommerzPaymentController extends Controller
                         ->where('transaction_id', $tran_id)
                         ->update(['status' => 'Processing']);
 
-                    echo "Transaction is successfully Completed";
-                } else {
-                    /*
-                    That means IPN worked, but Transation validation failed.
-                    Here you need to update order status as Failed in order table.
-                    */
-                    $update_product = DB::table('orders')
-                        ->where('transaction_id', $tran_id)
-                        ->update(['status' => 'Failed']);
-
-                    echo "validation Fail";
+                    return redirect()->route('index')->with('success-transaction', 'Transaction successful.');
                 }
-
-            } else if ($order_details->status == 'Processing' || $order_details->status == 'Complete') {
-
-                #That means Order status already updated. No need to udate database.
-
-                echo "Transaction is already successfully Completed";
-            } else {
-                #That means something wrong happened. You can redirect customer to your product page.
-
-                echo "Invalid Transaction";
+                /*
+                                That means IPN worked, but Transation validation failed.
+                                Here you need to update order status as Failed in order table.
+                                */
+                $update_product = DB::table('orders')
+                    ->where('transaction_id', $tran_id)
+                    ->update(['status' => 'Failed']);
+                return redirect()->back()->withErrors(['error' => 'Invalid Transaction']);
             }
-        } else {
-            echo "Invalid Data";
+
+            if ($order_details->status == 'Processing' || $order_details->status == 'Complete') {
+                #That means Order status already updated. No need to udate database.
+                return redirect()->route('index')->with('success-transaction', 'Transaction successful.');
+            }
+            #That means something wrong happened. You can redirect customer to your product page.
+            return redirect()->back()->withErrors(['error' => 'Invalid Transaction']);
         }
+
+        return redirect()->back()->withErrors(['error' => 'Invalid Transaction']);
     }
 
 }

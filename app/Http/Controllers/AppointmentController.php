@@ -65,6 +65,8 @@ class AppointmentController extends Controller
     {
         $request->validate([
             'appointment_date' => ['required'],
+            'appointment_time' => ['required'],
+            'address' => ['required'],
             'lab_test_ids' => ['required'],
         ], [
             'lab_test_ids' => 'Select lab test'
@@ -89,6 +91,8 @@ class AppointmentController extends Controller
         $store = Appointment::create([
             'appointment_no' => $data['appointment_no'],
             'appointment_date' => $data['appointment_date'],
+            'appointment_time' => $data['appointment_time'],
+            'address' => $data['address'],
             'status' => $data['status'],
             'cost' => $data['cost'],
             'users_id' => \auth()->id(),
